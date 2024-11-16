@@ -8,7 +8,7 @@ BEGIN
 	CREATE TABLE [dbo].[Stock_Status]
 	(
 		[id] INT NOT NULL PRIMARY KEY IDENTITY(1,1), -- Identificador único de cada estado de stock
-		[status_name] INT NOT NULL, -- Nombre del estado del stock
+		[status_name] VARCHAR(50) NOT NULL, -- Nombre del estado del stock
 		[key] VARCHAR(255) -- Clave o identificador alternativo para el estado de stock
 	)
 END

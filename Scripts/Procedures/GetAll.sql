@@ -17,7 +17,7 @@ BEGIN
 		Price AS 'Price',
 		Max_Stock AS 'MaxStock',
 		Mix_Stock AS 'MinStock',
-		Stock_Status AS 'StockStatus',
+		stock_status_id AS 'StockStatus',
 		Image_Path AS 'ImagePath',
 		Created_At AS 'CreatedAt',
 		Update_At AS 'Update_At'

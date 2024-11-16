@@ -11,7 +11,7 @@ BEGIN
 		[product_id] INT NOT NULL,                          -- Relación con el producto
 		[configuration_name] VARCHAR(255) NOT NULL,         -- Nombre de la configuración (e.g., color, tamaño)
 		[value] VARCHAR(255) NOT NULL,                      -- Valor de la configuración (e.g., rojo, grande)
-		[created_at] VARCHAR(255),                          -- Fecha de creación de la configuración
+		[created_at] DATETIME DEFAULT GETDATE(),                          -- Fecha de creación de la configuración
 		[updated_at] DATETIME DEFAULT GETDATE(),             -- Fecha de última actualización de la configuración
 
 		FOREIGN KEY ([product_id]) REFERENCES [dbo].[products]([id])

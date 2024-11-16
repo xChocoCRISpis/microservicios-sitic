@@ -1,3 +1,7 @@
+USE dbSitiCommerce;
+GO
+
+
 IF EXISTS (SELECT 1 FROM sys.objects
             WHERE object_id = OBJECT_ID(N'[dbo].[vwStockStatus]') AND TYPE IN(N'V'))
 BEGIN

@@ -7,11 +7,11 @@ BEGIN
 	/* Creación de la tabla Orders */
 	CREATE TABLE [dbo].[Orders]
 	(
-		[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),         -- Identificador único de la orden
-		[Total_Price] DECIMAL(20,2) NOT NULL,                -- Precio total del pedido
-		[Status] VARCHAR(50) NOT NULL,                       -- Estado del pedido (e.g., Enviado, pendiente)
-		[Created_At] DATETIME NOT NULL DEFAULT GETDATE(),    -- Fecha de creación del pedido
-		[Updated_At] DATETIME NOT NULL DEFAULT GETDATE()     -- Fecha de última actualización del pedido
+		[id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),         -- Identificador único de la orden
+		[total_price] DECIMAL(20,2) NOT NULL,                -- Precio total del pedido
+		[status] VARCHAR(50) NOT NULL,                       -- Estado del pedido (e.g., Enviado, pendiente)
+		[created_at] DATETIME NOT NULL DEFAULT GETDATE(),    -- Fecha de creación del pedido
+		[updated_at] DATETIME NOT NULL DEFAULT GETDATE()     -- Fecha de última actualización del pedido
 	)
 END
 

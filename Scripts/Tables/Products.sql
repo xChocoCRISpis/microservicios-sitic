@@ -7,19 +7,19 @@ BEGIN
 	/* Creación de la tabla Products */
 	CREATE TABLE [dbo].[Products]
 	(
-		[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),       -- Identificador principal de la tabla
-		[Name] VARCHAR(255) NOT NULL,                      -- Nombre del producto
-		[Description] TEXT NOT NULL,                       -- Descripción detallada del producto
-		[Price] DECIMAL(18,2) NOT NULL,                    -- Precio del producto
-		[Current_Stock] INT NOT NULL,                      -- Existencia actual del producto
-		[Max_Stock] INT NOT NULL,                          -- Existencia máxima del producto
-		[Mix_Stock] INT NOT NULL,                          -- Existencia mínima del producto
-		[Stock_Status_Id] INT NOT NULL,                    -- Relación con la tabla Stock_Status
-		[Image_Path] VARCHAR(255),                         -- Ruta de la imagen
-		[Created_At] DATETIME DEFAULT GETDATE(),           -- Fecha de creación del producto
-		[Update_At] DATETIME DEFAULT GETDATE(),            -- Fecha de la última actualización del producto
+		[id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),       -- Identificador principal de la tabla
+		[name] VARCHAR(255) NOT NULL,                      -- Nombre del producto
+		[description] TEXT NOT NULL,                       -- Descripción detallada del producto
+		[price] DECIMAL(18,2) NOT NULL,                    -- Precio del producto
+		[current_stock] INT NOT NULL,                      -- Existencia actual del producto
+		[max_stock] INT NOT NULL,                          -- Existencia máxima del producto
+		[mix_stock] INT NOT NULL,                          -- Existencia mínima del producto
+		[stock_status_id] INT NOT NULL,                    -- Relación con la tabla Stock_Status
+		[image_path] VARCHAR(255),                         -- Ruta de la imagen
+		[created_at] DATETIME DEFAULT GETDATE(),           -- Fecha de creación del producto
+		[update_at] DATETIME DEFAULT GETDATE(),            -- Fecha de la última actualización del producto
 
-		FOREIGN KEY ([Stock_Status_Id]) REFERENCES [dbo].[Stock_Status]([id])
+		FOREIGN KEY ([stock_status_id]) REFERENCES [dbo].[stock_status]([id])
 	)
 END
 

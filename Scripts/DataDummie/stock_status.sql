@@ -26,5 +26,7 @@ BEGIN
 END;
 GO
 
+/*
 SELECT * FROM Stock_Status;
 ALTER TABLE [dbo].Stock_Status 
+*/
