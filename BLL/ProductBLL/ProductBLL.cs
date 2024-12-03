@@ -1,5 +1,5 @@
 ﻿using DAL;
-using DAO.Utilities;
+using DAO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -29,7 +29,7 @@ namespace BLL
         public Product GetById(int id)
         {
             Product product = null;
-            using (DataTable dt = _dal.GetById(id))
+            using (DataTable dt = _dal.GetByID(id))
             {
                 if (dt?.Rows?.Count > 0)
                     product = Utilities.CommonUtils.ConvertToObject<Product>(dt.Rows[0]);
