@@ -25,7 +25,7 @@ BEGIN
 	Price =@Price,
 	Current_Stock =@Current_Stock,
 	Max_Stock =@Max_Stock,
-	Mix_Stock =@Min_Stock,
+	min_stock =@Min_Stock,
 	Image_Path =@Image_Path
 	WHERE Products.Id = @Id;
 END;

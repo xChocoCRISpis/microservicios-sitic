@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace SitiCommerce
 {
     public class Startup
@@ -25,9 +26,8 @@ namespace SitiCommerce
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Añade esta línea para registrar los servicios de controladores
-            services.AddControllers();
 
+            services.AddControllers();
 
             services.AddCors(options =>
             {
@@ -41,10 +41,9 @@ namespace SitiCommerce
                     });
             });
 
-            // Opcional: si estás usando Swagger, también añade esto
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SitiCommerce", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SITICCommerce", Version = "v1" });
             });
         }
 
@@ -55,12 +54,14 @@ namespace SitiCommerce
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SitiCommerce v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SITICCommerce v1"));
             }
+
             app.UseCors("Angular");
+
             app.UseRouting();
 
-            //app.UseAuthorization();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

@@ -15,8 +15,8 @@ namespace DAO
 
         public int Identity { get; set; }
 
-        static string server = "VM-ANGULAR-ANDR";
-        static string dateBase = "dbSiticCommerce";
+        static string server = "CHRIS\\SQLEXPRESS";
+        static string dateBase = "dbSitiCommerce";
         static string connectionString = string.Format("server={0}; database={1}; integrated security = true", server, dateBase);
         //Si tienen controlado la parte del login
         //static string user = "";
