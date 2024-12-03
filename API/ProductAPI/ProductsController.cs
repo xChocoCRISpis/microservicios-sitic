@@ -7,19 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 using DAO;
 using Microsoft.Extensions.Logging;
 using VO;
-using Helpers;
-using DAO.Utilities;
-using VO.Request;
-using static VO.Models.StaticDefinitions;
+using BLL;
+
 
 namespace ProductAPI
 {
-    [Route("Prodcut/[action]")]
+    [Route("Product/[action]")]
     [ApiController]
     class ProductsController : ControllerBase
     {
         private readonly DAOClass _dao;
         private readonly ILogger<ProductsController> _logger;
+        private DAOClass Dao { get { return _dao; } }
 
         private ProductsController(ILogger<ProductsController> logger)
         {
@@ -33,7 +32,7 @@ namespace ProductAPI
             ProductResponse response = new();
             try
             {
-                response.Product = new BLL.ProductBLL(DAO).GetById(id);
+                response.Product = new BLL.ProductBLL(Dao).GetById(id);
 
             }
             catch (Exception ex) {
@@ -49,31 +48,33 @@ namespace ProductAPI
             ProductResponse response = new();
             try
             {
-                response.Product = new BLL.ProductBLL(DAO).GetAll();
+                response.Products = new BLL.ProductBLL(Dao).GetAll();
 
             }
             catch (Exception ex)
             {
                 response.Error = Utilities.ErrorHandler.Handler(ex);
-                _logger.LogError($"Error en ProductController {nameof(GetById)}: {ex.Message}");
+                _logger.LogError($"Error en ProductController {nameof(GetAll)}: {ex.Message}");
             }
             return response;
         }
 
 
         [HttpPost]
-        public ActionResult<ProductResponse> Insert()
+        public ActionResult<ProductResponse> Insert(ProductRequest request)
         {
             ProductResponse response = new();
-            try
-            {
-                response.Product = new BLL.ProductBLL(DAO).Insert();
+            try { 
+
+
+                response.IsSuccess = new BLL.ProductBLL(Dao)
+                .ExecuteDBAction(eDbAction.Insert, request.Product);
 
             }
             catch (Exception ex)
             {
                 response.Error = Utilities.ErrorHandler.Handler(ex);
-                _logger.LogError($"Error en ProductController {nameof(GetById)}: {ex.Message}");
+                _logger.LogError($"Error en ProductController {nameof(Insert)}: {ex.Message}");
             }
             return response;
         }
@@ -85,13 +86,13 @@ namespace ProductAPI
             ProductResponse response = new();
             try
             {
-                response.IsSuccess = new BLL.ProductBLL(DAO).ExecuteDbAction(eDbAction.Update, request.Products);
-
+                response.IsSuccess = new BLL.ProductBLL(Dao)
+                    .ExecuteDBAction(eDbAction.Update, request.Product);
             }
             catch (Exception ex)
             {
                 response.Error = Utilities.ErrorHandler.Handler(ex);
-                _logger.LogError($"Error en ProductController {nameof(GetById)}: {ex.Message}");
+                _logger.LogError($"Error en ProductController {nameof(Update)}: {ex.Message}");
             }
             return response;
         }
@@ -103,13 +104,14 @@ namespace ProductAPI
             ProductResponse response = new();
             try
             {
-                response.IsSuccess = new BLL.ProductBLL(DAO).ExecuteDbAction(eDbAction.Delete, new() { id  = id});
+                response.IsSuccess = new BLL.ProductBLL(Dao)
+                    .ExecuteDBAction(eDbAction.Delete, new() { Id = id});
 
             }
             catch (Exception ex)
             {
                 response.Error = Utilities.ErrorHandler.Handler(ex);
-                _logger.LogError($"Error en ProductController {nameof(GetById)}: {ex.Message}");
+                _logger.LogError($"Error en ProductController {nameof(Delete)}: {ex.Message}");
             }
             return response;
         }

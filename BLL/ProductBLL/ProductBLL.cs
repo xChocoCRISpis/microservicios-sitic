@@ -70,7 +70,7 @@ namespace BLL
         #endregion
 
         #region Private methods
-        private bool Insert(Product product)
+        public bool Insert(Product product)
         {
             DAO.DAOClass dao = Dao;
             return Utilities.TransactionUtils.ExecuteWithTransaction(ref dao, () =>
@@ -79,7 +79,7 @@ namespace BLL
             });
         }
 
-        private bool Update(Product product)
+         public bool Update(Product product)
         {
             DAO.DAOClass dao = Dao;
             return Utilities.TransactionUtils.ExecuteWithTransaction(ref dao, () =>
@@ -88,7 +88,7 @@ namespace BLL
             });
         }
 
-        private bool Delete(int id)
+        public bool Delete(int id)
         {
             DAO.DAOClass dao = Dao;
             return Utilities.TransactionUtils.ExecuteWithTransaction(ref dao, () =>
