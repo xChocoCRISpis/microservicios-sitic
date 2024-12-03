@@ -5,10 +5,10 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VO.Models
+namespace VO
 {
     [DataContract]
-    public class Carts
+    public class Cart
     {
         [DataMember(EmitDefaultValue = false)]
         public int Id { get; set; }

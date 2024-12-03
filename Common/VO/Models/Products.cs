@@ -4,14 +4,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static VO.Models.StaticDefinitions;
 
 
 
 //Libreria de serialización
 using System.Runtime.Serialization;
 
-namespace VO.Models
+namespace VO
 {
     //Es un decorador obligatorio por la librería de serializacion
     [DataContract]
