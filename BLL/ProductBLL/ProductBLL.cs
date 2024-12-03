@@ -1,5 +1,4 @@
 ﻿using DAL;
-using DAO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -29,7 +28,7 @@ namespace BLL
         public Product GetById(int id)
         {
             Product product = null;
-            using (DataTable dt = _dal.GetByID(id))
+            using (DataTable dt = _dal.GetById(id))
             {
                 if (dt?.Rows?.Count > 0)
                     product = Utilities.CommonUtils.ConvertToObject<Product>(dt.Rows[0]);
@@ -70,7 +69,7 @@ namespace BLL
         #endregion
 
         #region Private methods
-        public bool Insert(Product product)
+        private bool Insert(Product product)
         {
             DAO.DAOClass dao = Dao;
             return Utilities.TransactionUtils.ExecuteWithTransaction(ref dao, () =>
@@ -79,7 +78,7 @@ namespace BLL
             });
         }
 
-         public bool Update(Product product)
+        private bool Update(Product product)
         {
             DAO.DAOClass dao = Dao;
             return Utilities.TransactionUtils.ExecuteWithTransaction(ref dao, () =>
@@ -88,7 +87,7 @@ namespace BLL
             });
         }
 
-        public bool Delete(int id)
+        private bool Delete(int id)
         {
             DAO.DAOClass dao = Dao;
             return Utilities.TransactionUtils.ExecuteWithTransaction(ref dao, () =>

@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAO.Utilities
+namespace Utilities
 {
     public class ParameterSanitizer
     {
-        private DAOClass Dao { get; set; }
+        private DAO.DAOClass Dao { get; set; }
 
         public ParameterSanitizer(DAOClass dao)
         {
@@ -21,7 +21,7 @@ namespace DAO.Utilities
 
         public void CleanParameterCollection(ref SqlParameterCollection parameters, string procedure)
         {
-            (string schema, string name) = global::DAO.Utilities.SqlCommandParser.ParseProcedureName(procedure);
+            (string schema, string name) = global::Utilities.SqlCommandParser.ParseProcedureName(procedure);
 
             List<string> lstParameters = GetProcedureParameters(schema, name);
 
@@ -49,7 +49,7 @@ namespace DAO.Utilities
                 {
                     lstParameters = new();
                     foreach (DataRow dr in dt.Rows)
-                        lstParameters.Add(dr.GetValueOrDefault<string>("Parameter"));
+                        lstParameters.Add(Utilities.GetValueOrDefault<string>(dr, "Parameter"));
                 }
             }
             return lstParameters;
@@ -61,12 +61,12 @@ namespace DAO.Utilities
         public static T GetValueOrDefault<T>(this DataRow dr, string columnName)
         {
             if (dr == null || !dr.Table.Columns.Contains(columnName))
-                return default;
+                return default(T);
 
             object value = dr[columnName];
 
             if (value == DBNull.Value)
-                return default;
+                return default(T);
 
             return (T)Convert.ChangeType(value, typeof(T));
         }
