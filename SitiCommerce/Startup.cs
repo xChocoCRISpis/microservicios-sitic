@@ -26,10 +26,16 @@ namespace SitiCommerce
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddCors(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SitiCommerce", Version = "v1" });
+                options.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyHeader());
+                options.AddPolicy("Angular",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                            .WithHeaders("access-control-allow-origin", "authorization", "content-type")
+                            .WithMethods("GET", "POST", "PUT", "DELETE");
+                    });
             });
         }
 
@@ -42,10 +48,10 @@ namespace SitiCommerce
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SitiCommerce v1"));
             }
-
+            app.UseCors("Angular");
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

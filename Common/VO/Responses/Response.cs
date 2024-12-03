@@ -8,15 +8,12 @@ using System.Threading.Tasks;
 namespace VO
 {
     [DataContract]
-    public class Carts
+    public class Response
     {
         [DataMember(EmitDefaultValue =false)]
-        public int Id { get; set; }
+        public Error Error { get; set; }
 
-        [DataMember(EmitDefaultValue =false)]
-        public DateTime CreatedAt { get; set; }
-
-        [DataMember(EmitDefaultValue =false)]
-        public DateTime UpdatedAt { get; set; }
+        [DataMember(EmitDefaultValue = false)]
+        public bool IsSuccess { get; set; }
     }
 }

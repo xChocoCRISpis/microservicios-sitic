@@ -5,19 +5,13 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VO
+namespace VO.Models
 {
     [DataContract]
-    public class Orders
+    public class Carts
     {
         [DataMember(EmitDefaultValue = false)]
         public int Id { get; set; }
-
-        [DataMember(EmitDefaultValue = false)]
-        public double TotalPrice { get; set; }
-
-        [DataMember(EmitDefaultValue = false)]
-        public string Status {  get; set; }
 
         [DataMember(EmitDefaultValue = false)]
         public DateTime CreatedAt { get; set; }

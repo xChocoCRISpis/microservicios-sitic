@@ -4,25 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VO
+namespace VO.Models
 {
     public class StaticDefinitions
     //Una vez declarado un valor, sigue consecutivamente
-    { 
-        public enum eStockStatus {
+    {
+        public enum eStockStatus
+        {
             IN_STOCK = 1,
             OUT_OF_STOCK,
             LOW_STOCK
         }
 
-        public enum eDbAction{
-            Insert =1,
-            Update =2,
-            Delete =3,
+        public enum eDbAction
+        {
+            Insert = 1,
+            Update = 2,
+            Delete = 3,
         }
 
-        public enum eErrorType { 
-            None =0, //ninguno
+        public enum eErrorType
+        {
+            None = 0, //ninguno
             NotFound = 1, // no se encotró registro
             Format, //error de conversion
             Sql, //sql
@@ -38,7 +41,8 @@ namespace VO
         ///</summary>
 
 
-        public class Schema {
+        public class Schema
+        {
             /// <summary>
             /// Esquema products
             /// </summary>
@@ -73,7 +77,8 @@ namespace VO
         ///<summary>
         /// Representa los procedimientos almacenados de la base de datos que se manejan en este microservicio
         ///</summary>
-        public class Procedures {
+        public class Procedures
+        {
             /// <summary>
             /// Procedimiento para insertar
             /// </summary>

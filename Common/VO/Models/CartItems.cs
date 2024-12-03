@@ -5,22 +5,22 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VO
+namespace VO.Models
 {
     [DataContract]
-    public class OrderItems
+    public class CartItems
     {
         [DataMember(EmitDefaultValue = false)]
         public int Id { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public int OrderId { get; set; }
+        public int CartId { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
         public int ProductId { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public int Quantity { get; set; }
+        public int Quatity { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
         public double Price { get; set; }

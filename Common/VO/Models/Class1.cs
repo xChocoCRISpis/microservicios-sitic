@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VO
+namespace VO.Models
 {
     public class Class1
     {

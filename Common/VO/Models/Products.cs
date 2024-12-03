@@ -4,18 +4,18 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static VO.StaticDefinitions;
+using static VO.Models.StaticDefinitions;
 
 
 
 //Libreria de serialización
 using System.Runtime.Serialization;
 
-namespace VO
+namespace VO.Models
 {
     //Es un decorador obligatorio por la librería de serializacion
     [DataContract]
-    public class Products
+    public class Product
     {
         //Vacio tare el valor por defecto para definir una respuesta
         //[DataMember]
@@ -42,7 +42,7 @@ namespace VO
         public int MinStock { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public eStockStatus StockStatusId { get; set; } 
+        public eStockStatus StockStatusId { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
         public string ImagePath { get; set; }

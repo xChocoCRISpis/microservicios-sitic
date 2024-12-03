@@ -5,28 +5,30 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VO
+namespace VO.Models
 {
     [DataContract]
-    public class ProductConfiguration
+    public class OrderItems
     {
-        [DataMember(EmitDefaultValue =false)]
+        [DataMember(EmitDefaultValue = false)]
         public int Id { get; set; }
+
+        [DataMember(EmitDefaultValue = false)]
+        public int OrderId { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
         public int ProductId { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public string ConfigurationName { get; set; }
+        public int Quantity { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public string Value { get; set; }
+        public double Price { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
         public DateTime CreatedAt { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
         public DateTime UpdatedAt { get; set; }
-
     }
 }
