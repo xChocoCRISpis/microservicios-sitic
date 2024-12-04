@@ -19,18 +19,18 @@ namespace VO
         [DataMember(EmitDefaultValue = false)]
         public double Price { get; set; }
         [DataMember(EmitDefaultValue = false)]
-        public int CurrentStock { get; set; }
+        public int Current_Stock { get; set; }
         [DataMember(EmitDefaultValue = false)]
-        public int MaxStock { get; set; }
+        public int Max_Stock { get; set; }
         [DataMember(EmitDefaultValue = false)]
-        public int MinStock { get; set; }
+        public int Min_Stock { get; set; }
         [DataMember(EmitDefaultValue = false)]
-        public eStockStatus StockStatusId { get; set; }
+        public eStockStatus Stock_Status_Id { get; set; }
         [DataMember(EmitDefaultValue = false)]
-        public string Imagepath { get; set; }
+        public string Image_Path { get; set; }
         [DataMember(EmitDefaultValue = false)]
-        public DateTime CreatedAt { get; set; }
+        public DateTime Created_At { get; set; }
         [DataMember(EmitDefaultValue = false)]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime Updated_At { get; set; }
     }
 }

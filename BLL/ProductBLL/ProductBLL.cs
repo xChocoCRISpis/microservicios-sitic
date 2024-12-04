@@ -62,7 +62,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                throw new Exception();
+                throw new Exception($"Error en ExecuteDbAction,{ex.Message}");
             }
 
             return ok;
