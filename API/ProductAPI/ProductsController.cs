@@ -39,6 +39,7 @@ namespace Services
             try
             {
                 response.Product = new BLL.ProductBLL(Dao).GetById(id);
+                response.IsSuccess = true;
             }
             catch (Exception ex)
             {
@@ -57,6 +58,7 @@ namespace Services
             try
             {
                 response.Products = new BLL.ProductBLL(Dao).GetAll();
+                response.IsSuccess = true;
             }
             catch (Exception ex)
             {
@@ -69,7 +71,7 @@ namespace Services
 
         #region DML (Insert, Update, Delete)
         [HttpPost]
-        public ActionResult<ProductResponse> Insert(ProductRequest request)
+        public ActionResult<ProductResponse> Insert(ProductRequest request )
         {
             ProductResponse response = new();
 
@@ -80,7 +82,7 @@ namespace Services
             catch (Exception ex)
             {
                 response.Error = Utilities.ErrorHandler.Handler(ex);
-                _logger.LogError($"Error en ProductController {nameof(Insert)}: ${ex.Message}");
+                _logger.LogError($"Error en ProductController {nameof(Insert)}: ${ex.Message}",ex);
             }
 
             return response;

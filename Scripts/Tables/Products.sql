@@ -13,8 +13,8 @@ BEGIN
 		[price] DECIMAL(18,2) NOT NULL,                    -- Precio del producto
 		[current_stock] INT NOT NULL,                      -- Existencia actual del producto
 		[max_stock] INT NOT NULL,                          -- Existencia máxima del producto
-		[mix_stock] INT NOT NULL,                          -- Existencia mínima del producto
-		[stock_status_id] INT NOT NULL,                    -- Relación con la tabla Stock_Status
+		[min_stock] INT NOT NULL,                          -- Existencia mínima del producto
+		[stock_status_id] INT NULL,                    -- Relación con la tabla Stock_Status
 		[image_path] VARCHAR(255),                         -- Ruta de la imagen
 		[created_at] DATETIME DEFAULT GETDATE(),           -- Fecha de creación del producto
 		[update_at] DATETIME DEFAULT GETDATE(),            -- Fecha de la última actualización del producto

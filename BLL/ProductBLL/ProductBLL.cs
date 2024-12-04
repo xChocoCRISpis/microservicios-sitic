@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VO;
 
+
 namespace BLL
 {
     public class ProductBLL
@@ -40,7 +41,7 @@ namespace BLL
         {
             using (DataTable dt = _dal.GetAll())
                 return Utilities.CommonUtils.ConvertDataTableToList<Product>(dt);
-        }
+        }   
 
 
         public bool ExecuteDBAction(eDbAction action, Product product)

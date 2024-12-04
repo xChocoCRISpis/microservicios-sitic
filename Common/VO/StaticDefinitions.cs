@@ -29,7 +29,8 @@ namespace VO
         Validation,     //Errores controlados
         Connection,     //Error de conexión
         Timeout,        //Error de timeout por bloqueos o interbloqueos
-        Unknown = 99    //Desconocido
+        Unknown = 99,    //Desconocido
+        NocheUwu = 100
     }
 
     //Representaciones

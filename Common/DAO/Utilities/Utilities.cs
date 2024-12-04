@@ -24,11 +24,10 @@ namespace Utilities
             (string schema, string name) = global::Utilities.SqlCommandParser.ParseProcedureName(procedure);
 
             List<string> lstParameters = GetProcedureParameters(schema, name);
+            Console.WriteLine(lstParameters);
 
-            if (lstParameters == null || lstParameters.Count == 0)
-            {
+            if (parameters == null || parameters.Count == 0)
                 return;
-            }
 
             List<SqlParameter> parametersToRemove = new();
 

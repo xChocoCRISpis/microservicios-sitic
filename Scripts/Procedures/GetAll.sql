@@ -11,7 +11,8 @@ CREATE PROCEDURE [Products].[GetAll]
 WITH ENCRYPTION
 AS
 BEGIN
-	SELECT 
+	SELECT
+		Id AS 'Id',
 		[Name] AS 'Name',
 		[Description] AS 'Description',
 		Price AS 'Price',

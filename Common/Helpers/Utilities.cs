@@ -88,6 +88,7 @@ namespace Utilities
                 }
                 catch (NotImplementedException ex)
                 {
+                    Console.WriteLine($"Error en utilities.AddParametersForObject: ${ex}");
                     continue;
                 }
             }
@@ -158,6 +159,7 @@ namespace Utilities
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error en utilities.ExecuteWithTransaction: {ex}");
                 dao.Rollback();
                 throw;
             }
@@ -175,7 +177,7 @@ namespace Utilities
                 ExceptionWeb => ((ExceptionWeb)ex).ErrorType,
                 FormatException or InvalidCastException => eErrorType.Format,
                 SqlException => eErrorType.Sql,
-                _ => eErrorType.Unknown
+                _ => eErrorType.NocheUwu
             });
         }
     }

@@ -12,7 +12,7 @@ CREATE PROCEDURE [Products].[Delete]
 WITH ENCRYPTION
 AS
 BEGIN
-	DELETE Products WHERE Products.id = @Id;
+	DELETE Products WHERE Id = @Id;
 END;
 GO
 EXEC sp_recompile N'[Products].[Delete]'

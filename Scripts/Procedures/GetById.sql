@@ -13,6 +13,7 @@ WITH ENCRYPTION
 AS
 BEGIN
 	SELECT 
+	Id AS 'Id',
 		[Name] AS 'Name',
 		[Description] AS 'Description',
 		Price AS 'Price',

@@ -18,8 +18,10 @@ CREATE PROCEDURE [Products].[Insert]
 WITH ENCRYPTION
 AS
 BEGIN
-	INSERT INTO Products ([Name],[Description],Price,Current_Stock,Max_Stock,Min_Stock,Image_Path)
-	VALUES (@Name,@Description,@Price,@Current_Stock,@Max_Stock,@Min_Stock,@Image_Path)
+	INSERT INTO Products (Name, Description, Price, Current_Stock,
+	Max_Stock, Min_Stock, Image_Path)
+	VALUES (@Name, @Description, @Price, @Current_Stock,
+	@Max_Stock, @Min_Stock, @Image_Path)
 END;
 GO
 EXEC sp_recompile N'[Products].[Insert]'

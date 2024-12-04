@@ -35,7 +35,7 @@ BEGIN
 
 
 		DECLARE cursor_products CURSOR FAST_FORWARD FOR
-		SELECT Id, current_stock, mix_stock FROM Products
+		SELECT Id, current_stock, min_stock FROM Products
 		OPEN cursor_products
 
 		FETCH NEXT FROM cursor_products INTO @ProductId, @CurrentStock, @MinStock;
