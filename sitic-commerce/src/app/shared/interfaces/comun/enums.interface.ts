@@ -14,5 +14,6 @@ export enum eErrorType {
     ConnectionError,
     TimeoutError,
     ConflictError,
-    UnkownError
+    UnkownError,
+    NocheUwu
 }
