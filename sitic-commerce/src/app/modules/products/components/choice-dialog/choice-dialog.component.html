@@ -1,21 +1,23 @@
-<span mat-dialog-title>
-    <span [class]="choiceType | choiceClass" class="flex items-center space-x-5 pb-1">
-        <mat-icon [svgIcon]="icon" class="icon-base" inline="true"></mat-icon>
-        <span class="subheading-2">{{ title }}</span>
+<div [class]="choiceType | choiceClass">
+    <span mat-dialog-title>
+        <span class="flex items-center space-x-5 pb-1">
+            <mat-icon [svgIcon]="icon" class="icon-base" inline="true"></mat-icon>
+            <span class="subheading-2">{{ title }}</span>
+        </span>
+
+        <mat-progress-bar mode="indeterminate" *ngIf="loading" color="primary"></mat-progress-bar>
     </span>
 
-    <mat-progress-bar mode="indeterminate" *ngIf="loading" color="primary"></mat-progress-bar>
-</span>
+    <mat-dialog-content>
+        <div class="flex-1 items-center space-x-2 pb-1">
+            Deseas eliminar el producto:
+            <span class="overflow-auto flex justify-center text-blue-500"> {{ product?.name }} </span>
+        </div>
+    </mat-dialog-content>
 
-<mat-dialog-content>
-    <div [class]="choiceType | choiceClass" class="flex-1 items-center space-x-2 pb-1">
-        Deseas eliminar el producto:
-        <span class="overflow-auto flex justify-center text-blue-500"> {{ product?.name }} </span>
-    </div>
-</mat-dialog-content>
+    <mat-dialog-actions class="flex justify-between space-x-5">
+        <button mat-flat-button (click)="onClose()" class="flex-1 bg-gray-200 text-gray-700 border-gray-600 cursor-pointer hover:bg-gray-400 hover:text-cyan-900 hover:border-gray-800">NO</button>
 
-<mat-dialog-actions class="flex justify-between space-x-5">
-    <button mat-flat-button (click)="onClose()" class="flex-1 bg-gray-200 text-gray-700 border-gray-600 cursor-pointer hover:bg-gray-400 hover:text-cyan-900 hover:border-gray-800">NO</button>
-
-    <button mat-flat-button (click)="onAccept()"class="flex-1 bg-rose-400 text-red-800 border-rose-800 cursor-pointer hover:bg-rose-500 hover:text-red-800 hover:border-rose-900">SÍ</button>
-</mat-dialog-actions>
+        <button mat-flat-button (click)="onAccept()" class="flex-1 bg-rose-400 text-red-800 border-rose-800 cursor-pointer hover:bg-rose-500 hover:text-red-800 hover:border-rose-900">SÍ</button>
+    </mat-dialog-actions>
+</div>
