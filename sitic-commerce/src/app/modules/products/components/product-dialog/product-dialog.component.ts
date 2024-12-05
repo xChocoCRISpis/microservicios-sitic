@@ -13,7 +13,7 @@ import { Product } from "src/app/shared/interfaces/products/product.interface";
 import { ProductsResponse } from "src/app/shared/interfaces/products/products-response.interface";
 
 @Component({
-  selector: "app-product-dialog",
+  selector: "product-dialog",
   templateUrl: "./product-dialog.component.html",
   styleUrls: ["./product-dialog.component.scss"],
 })
@@ -176,5 +176,10 @@ export class ProductDialogComponent implements OnInit {
     this.product.minStock = this.formProduct.get("minStock")?.value;
 
     return true;
+  }
+
+
+  onClose(){
+    this.dialogRef.close();
   }
 }

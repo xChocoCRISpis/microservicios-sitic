@@ -16,12 +16,13 @@ BEGIN
 		[Name] AS 'Name',
 		[Description] AS 'Description',
 		Price AS 'Price',
+		current_stock AS 'CurrentStock',
 		Max_Stock AS 'MaxStock',
 		Min_Stock AS 'MinStock',
 		stock_status_id AS 'StockStatus',
 		Image_Path AS 'ImagePath',
 		Created_At AS 'CreatedAt',
-		Update_At AS 'Update_At'
+		Update_At AS 'UpdatedAt'
 	FROM Products
 END;
 GO

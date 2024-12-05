@@ -59,6 +59,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions class="flex justify-end space-x-2">
-    <button mat-flat-button mat-diFalog-close cdkFocusInitial [disabled]="loading">Cancelar</button>
+    <button mat-flat-button mat-diFalog-close cdkFocusInitial [disabled]="loading"
+    *ngIf="eScreenStatus != 3" (click)="onClose()">Cancelar</button>
     <button mat-flat-button color="primary" [disabled]="loading" (click)="onSubmit()">ACEPTAR</button>
 </mat-dialog-actions>

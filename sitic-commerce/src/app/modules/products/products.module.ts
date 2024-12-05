@@ -9,10 +9,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { ProductDialogModule } from './components/product-dialog/product-dialog.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ChoiceDialogComponent } from './components/choice-dialog/choice-dialog.component';
+import { ChoiceDialogModule } from './components/choice-dialog/choice-dialog.module';
 
 @NgModule({
   declarations: [
-    ProductsComponent
+    ProductsComponent,
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatProgressBarModule,
 
     // CUSTOM
-    ProductDialogModule
+    ProductDialogModule,
+    ChoiceDialogModule
   ]
 })
 export class ProductsModule { }

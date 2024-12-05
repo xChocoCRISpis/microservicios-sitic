@@ -27,30 +27,30 @@ namespace VO
 
 
         [DataMember(EmitDefaultValue = false)]
-        public int Current_Stock { get; set; }
+        public int CurrentStock { get; set; }
 
 
         [DataMember(EmitDefaultValue = false)]
-        public int Max_Stock { get; set; }
+        public int MaxStock { get; set; }
 
 
         [DataMember(EmitDefaultValue = false)]
-        public int Min_Stock { get; set; }
+        public int MinStock { get; set; }
 
 
         [DataMember(EmitDefaultValue = false)]
-        public eStockStatus Stock_Status_Id { get; set; }
+        public eStockStatus StockStatusId { get; set; }
 
 
         [DataMember(EmitDefaultValue = false)]
-        public string Image_Path { get; set; }
+        public string ImagePath { get; set; }
 
 
         [DataMember(EmitDefaultValue = false)]
-        public DateTime Created_At { get; set; }
+        public DateTime CreatedAt { get; set; }
 
 
         [DataMember(EmitDefaultValue = false)]
-        public DateTime Updated_At { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

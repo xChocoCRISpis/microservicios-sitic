@@ -11,7 +11,7 @@ namespace Utilities
 {
     public static class CommonUtils
     {
-        public static List<T> ConvertDataTableToList<T>(DataTable dt) where T : new()
+        public static List<T> ConvertDataTableToList<T>(DataTable dt) where T : new() 
         {
             List<T> list;
             T obj;

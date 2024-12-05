@@ -2,7 +2,8 @@ export enum eScreenStatus {
     None,
     Adding,
     Updating,
-    ViewDetail
+    ViewDetail,
+    Delete
 }
 
 export enum eErrorType {
@@ -16,4 +17,11 @@ export enum eErrorType {
     ConflictError,
     UnkownError,
     NocheUwu
+}
+
+
+export enum eChoiceType {
+    Caution,
+    Accept,
+    None
 }

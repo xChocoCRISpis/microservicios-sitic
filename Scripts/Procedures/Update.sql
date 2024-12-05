@@ -12,10 +12,10 @@ CREATE PROCEDURE [Products].[Update]
 	@Name VARCHAR(255),
 	@Description TEXT,
 	@Price DECIMAL(18,2),
-	@Current_Stock INT,
-	@Max_Stock INT,
-	@Min_Stock INT,
-	@Image_Path VARCHAR(255)
+	@CurrentStock INT,
+	@MaxStock INT,
+	@MinStock INT,
+	@ImagePath VARCHAR(255)
 WITH ENCRYPTION
 AS
 BEGIN
@@ -23,10 +23,10 @@ BEGIN
 	Name = @Name,
 	Description =@Description,
 	Price =@Price,
-	Current_Stock =@Current_Stock,
-	Max_Stock =@Max_Stock,
-	min_stock =@Min_Stock,
-	Image_Path =@Image_Path
+	Current_Stock =@CurrentStock,
+	Max_Stock =@MaxStock,
+	min_stock =@MinStock,
+	Image_Path =@ImagePath
 	WHERE Products.Id = @Id;
 END;
 GO
