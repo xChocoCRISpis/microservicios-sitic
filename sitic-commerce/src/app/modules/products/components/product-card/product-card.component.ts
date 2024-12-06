@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 // Interfaces
 import { Product } from 'src/app/shared/interfaces/products/product.interface';
 import { ProductsService } from 'src/app/shared/services/products.service';
+import { ProductStatusClassPipe } from 'src/app/shared/pipes/product-satus-class/product-status-class.pipe'
 
 @Component({
   selector: 'product-card',

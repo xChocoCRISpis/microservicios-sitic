@@ -6,8 +6,10 @@ import { eStockStatus } from '../../interfaces/stock_status/enums_stock_status.i
 })
 export class ProductStatusClassPipe implements PipeTransform {
 
-  transform(currentStock:number, minStock:number, maxStock:number): {bg:string;text:string;border:string} {
-
+  transform(currentStock:number, minStock:number, maxStock:number): 
+  {bg:string;text:string;border:string;
+    bg_text:string;bg_border:string;bg_text_border:string;
+    text_border:string;} {
     enum eSections {
       background,
       text,
@@ -22,17 +24,17 @@ export class ProductStatusClassPipe implements PipeTransform {
       [eStockStatus.inStock,new Map([
           [eSections.text,'bg-emerald-700'],
           [eSections.background,'text-green-100'],
-          [eSections.border,'border-emerald-950']
+          [eSections.border,'border-emerald-950 ring-2 ring-emerald-950 shadow-green-300']
         ])],
       [eStockStatus.lowStock,new Map([
         [eSections.text, 'text-yellow-600'],
         [eSections.background, 'bg-yellow-100'],
-        [eSections.border, 'border-yellow-600']
+        [eSections.border, 'border-yellow-600 ring-2 ring-yellow-600 shadow-yellow-300']
       ])],
       [eStockStatus.outOfStock,new Map([
         [eSections.text, 'text-red-600'],
         [eSections.background, 'bg-red-100'],
-        [eSections.border, 'border-red-600']
+        [eSections.border, 'border-red-600 ring-2 ring-rose-600 shadow-rose-300']
       ])],
       [eStockStatus.None, new Map([
         [eSections.text, 'text-grey-600'],
@@ -59,10 +61,20 @@ export class ProductStatusClassPipe implements PipeTransform {
     }
 
 
-    return {
+    const primaryParts = {
       bg: classes.get(stockStatus).get(eSections.background),
       text:classes.get(stockStatus).get(eSections.text),
       border:classes.get(stockStatus).get(eSections.border)
     };
+
+    return {
+      bg:primaryParts.bg,
+      text:primaryParts.text,
+      border:primaryParts.border,
+      bg_border:`${primaryParts.bg} ${primaryParts.border}`,
+      bg_text:`${primaryParts.bg} ${primaryParts.text}`,
+      bg_text_border:`${primaryParts.bg} ${primaryParts.text} ${primaryParts.border}`,
+      text_border:`${primaryParts.text} ${primaryParts.border}`
+    }
   }
 }
