@@ -19,6 +19,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
 
     ProductCardModule
+
+    //pipes
+    
   ]
 })
 export class StoreModule { }
