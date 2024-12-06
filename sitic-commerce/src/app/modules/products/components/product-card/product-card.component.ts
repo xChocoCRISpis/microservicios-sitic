@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 // Interfaces
 import { Product } from 'src/app/shared/interfaces/products/product.interface';
+import { ProductsService } from 'src/app/shared/services/products.service';
 
 @Component({
   selector: 'product-card',
@@ -9,6 +10,8 @@ import { Product } from 'src/app/shared/interfaces/products/product.interface';
   styleUrls: ['./product-card.component.scss']
 })
 export class ProductCardComponent implements OnInit {
+
+  private serviceProducts = Inject(ProductsService);
 
   product: Product = {
     id:1,

@@ -5,9 +5,12 @@
         
         <div class="bg-foreground rounded-lg px-4 mx-4 max-w-[200px] border border-neutral-800 flex flex-row items-center">
             <mat-icon svgIcon="mat:search" class="icon-base"></mat-icon>
-            <input class="px-4 py-3 border-0 outline-none w-full bg-transparent" placeholder="Buscar..." type="search">
+            <input #searchInput (input)="search(searchInput)" class="px-4 py-3 border-0 outline-none w-full bg-transparent" placeholder="Buscar..." type="search">
         </div>
-
+        <ng-container *ngIf="notFindProduct">
+          <span class="text-rose-800">No se encontró el producto...</span>
+        </ng-container>
+        
         <div class="flex-grow"></div>
 
         <button mat-stroked-button color="primary" (click)="getAllProducts()" [disabled]="loading">

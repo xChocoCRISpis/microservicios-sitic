@@ -34,6 +34,10 @@ export class ProductsComponent implements OnInit {
   productList: Product[] = [];
   dataSource = new MatTableDataSource<Product>(this.productList);
   loading: boolean = false;
+  notFindProduct : boolean = false;
+  lastFailedTerm :string="";
+
+  searchElement:HTMLInputElement;
 
   constructor(private dialog: MatDialog, private productsService: ProductsService) {}
 
@@ -41,6 +45,57 @@ export class ProductsComponent implements OnInit {
     this.dataSource = new MatTableDataSource();
     await this.getAllProducts();
   }
+
+
+  async search(input: HTMLInputElement, reqMoreItem: boolean = true): Promise<void> {
+    this.loading = true;
+  
+    const searchTerm = input.value.trim().toLowerCase();
+    
+    //Valida si hay una entrada de datos a la funcion
+    if (!searchTerm) {
+      this.dataSource.data = this.productList;
+      this.notFindProduct = false;
+      this.loading = false;
+      this.lastFailedTerm = "";
+      return;
+    }
+  
+    //Si hay un termino fallido y este es igual a como empieza el termino de entrada
+    //se hace un return para no realizar procesamiento ni peticiones
+    if (this.lastFailedTerm && searchTerm.startsWith(this.lastFailedTerm)) {
+      this.dataSource.data = [];
+      this.notFindProduct = true;
+      this.loading = false;
+      return;
+    }
+
+  
+    const filteredProducts = this.productList.filter((product) =>
+      product.name.toLowerCase().startsWith(searchTerm)
+    );
+    
+    //Realizar una segunda peticion a todos los productos, solo por si acaso (no sé si vaya a afectar en la peticiones)
+    if (filteredProducts.length === 0 && reqMoreItem) {
+      await this.getAllProducts();
+      await this.search(input, false);
+      return;
+    }
+
+    //Se encuentra o no se encuentr un producto en el objeto
+    if (filteredProducts.length === 0) {
+      this.lastFailedTerm = searchTerm; 
+      this.notFindProduct = true;
+      this.dataSource.data = [];
+    } else {
+      this.lastFailedTerm = "";
+      this.notFindProduct = false;
+      this.dataSource.data = filteredProducts;
+    }
+  
+    this.loading = false;
+  }
+  
 
   async getAllProducts() {
     this.loading = true;
@@ -52,7 +107,7 @@ export class ProductsComponent implements OnInit {
           console.error(resp.error);
           return;
         }
-
+        this.productList = resp.products;
         this.dataSource.data = resp.products;
       })
       .catch(err => {
