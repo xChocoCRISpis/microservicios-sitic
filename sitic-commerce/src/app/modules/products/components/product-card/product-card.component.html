@@ -1,9 +1,10 @@
-<div [ngClass] = "(product?.currentStock | productStatusClass:product?.minStock:product?.maxStock).bg_text_border" 
+<div [ngClass] = "(product?.currentStock | productStatusClass:product?.maxStock:product?.minStock).bg_text_border" 
     class="rounded-md shadow-md ">
   <div class="p-2 text-center relative" matRipple>
-
+    <ng-container *ngIf="!imgError; else noImage">
+      <img (error)="errorHandlerImg()" data-base64="true" [src]="product.imagePath" class="h-24 w-24 mx-auto rounded-lg">
+    </ng-container>
     <!-- Imagen de producto -->
-    <img *ngIf="false; else noImage" data-base64="true" [src]="product.imagePath" class="h-24 w-24 mx-auto rounded-lg">
     
     <ng-template #noImage> 
     <div class="h-24 w-24 mx-auto leading-none flex items-center justify-center">
@@ -23,7 +24,7 @@
 
     <!-- Etiqueta nuevo -->
     <!-- Esta etiqueta solo debe de mostrarse si el producto fue creado en una fecha no mayor a dos días -->
-    <div class="absolute top-4 left-2">
+    <div class="absolute top-4 left-2" *ngIf="product.createdAt >= currentDate">
       <span class="rounded px-2 py-1 flex-none bg-purple-600/10 text-purple-600">New</span>
     </div>
   </div>
@@ -36,4 +37,10 @@
     <!-- La existencia debe de ser representada con un color caracteristico en base al minStock, maxStock y currentStock del producto -->
     <span class="rounded px-2 py-1 flex-none bg-gray-600/10 text-gray-600">{{ (product.currentStock ?? 0) | number: '1.0-0' }}</span>
   </div>
+</div>
+
+<div>
+  {{product | json}}
+
+  <div class="text-blue-800"> {{currentDate}}</div>
 </div>

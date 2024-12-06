@@ -8,7 +8,7 @@
                          el cual debe de emitir el producto para que store.component lo escuche -->
 
                     <!-- Product card debe recibir el producto para poder renderizar su información -->
-                    <product-card *ngFor="let product of productList"></product-card>
+                    <product-card *ngFor="let product of productList" [product]="product"></product-card>
                 </div>
             </div>
         </div>

@@ -10,6 +10,8 @@ export class ProductStatusClassPipe implements PipeTransform {
   {bg:string;text:string;border:string;
     bg_text:string;bg_border:string;bg_text_border:string;
     text_border:string;} {
+
+      console.log("pipeStockClass",{currentStock,minStock,maxStock})
     enum eSections {
       background,
       text,
@@ -22,8 +24,8 @@ export class ProductStatusClassPipe implements PipeTransform {
 
     const classes = new Map<eStockStatus,Map<eSections,string>>([
       [eStockStatus.inStock,new Map([
-          [eSections.text,'bg-emerald-700'],
-          [eSections.background,'text-green-100'],
+          [eSections.text,'text-emerald-700'],
+          [eSections.background,'bg-green-100'],
           [eSections.border,'border-emerald-950 ring-2 ring-emerald-950 shadow-green-300']
         ])],
       [eStockStatus.lowStock,new Map([

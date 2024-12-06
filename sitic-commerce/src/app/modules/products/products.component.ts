@@ -36,6 +36,7 @@ export class ProductsComponent implements OnInit {
   loading: boolean = false;
   notFindProduct : boolean = false;
   lastFailedTerm :string="";
+  errorImageLoad:boolean = false;
 
   searchElement:HTMLInputElement;
 
@@ -165,5 +166,9 @@ export class ProductsComponent implements OnInit {
     return await lastValueFrom(dialogChoice.afterClosed()).then(result => {
       return Promise.resolve(result);
     });
+  }
+
+  errorImageHandler(){
+    this.errorImageLoad = true;
   }
 }

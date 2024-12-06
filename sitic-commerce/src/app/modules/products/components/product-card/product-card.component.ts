@@ -1,9 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 
 // Interfaces
 import { Product } from 'src/app/shared/interfaces/products/product.interface';
 import { ProductsService } from 'src/app/shared/services/products.service';
 import { ProductStatusClassPipe } from 'src/app/shared/pipes/product-satus-class/product-status-class.pipe'
+import { StringifyOptions } from 'querystring';
 
 @Component({
   selector: 'product-card',
@@ -13,8 +14,10 @@ import { ProductStatusClassPipe } from 'src/app/shared/pipes/product-satus-class
 export class ProductCardComponent implements OnInit {
 
   private serviceProducts = Inject(ProductsService);
+  imgError:boolean = false;
+  currentDate : Date|string = new Date(new Date().setDate(new Date().getDate() - 2)).toISOString() ;
 
-  product: Product = {
+  @Input() product: Product = {
     id:1,
     name:"Mouse Inalámbrico Logitech",
     description:"Mouse ergonómico con conectividad inalámbrica y batería de larga duración",
@@ -30,5 +33,10 @@ export class ProductCardComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  errorHandlerImg(){
+    this.imgError= true;
+  }
+
 
 }

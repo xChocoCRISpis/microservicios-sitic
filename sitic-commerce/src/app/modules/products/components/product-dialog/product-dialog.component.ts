@@ -114,9 +114,10 @@ export class ProductDialogComponent implements OnInit {
         console.error(err);
       });
   }
-
+  //TODO: Hay que hacer lo del image Path, por ahora se va a usar un placeholder
   async addProduct() {
     this.loading = true;
+    this.product.imagePath = 'http://moodle.upgop.edu.mx/moodle40/pluginfile.php/159/user/icon/moove/f1?rev=751052';
     this.productsService
       .addProduct(this.product)
       .then((resp: ProductsResponse) => {
