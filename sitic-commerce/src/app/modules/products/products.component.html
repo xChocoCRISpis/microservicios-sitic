@@ -54,15 +54,15 @@
             </td>
           </ng-container>
 
+          <!-- TODO: La neta no se porque se desacomoda el template cuando lo encuentro con el search -->
       <ng-container matColumnDef="imgPath" sticky>
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element" >
-          <span>{{element.imagePath}} {{errorImageLoad}}</span>
-          <ng-container *ngIf="!errorImageLoad; else noImage">
-            <img (error)="errorImageHandler()" data-base64="true" [src]="element.imagePath" class="mr-4 h-8 w-8 align-middle rounded-lg">
+          <ng-container *ngIf="element.imagePath else noImage">
+            <img (error)="errorImageHandler(element.id)" data-base64="true" [src]="element.imagePath" class="mx-2 h-8 w-8 rounded-lg align-middle">
           </ng-container>
             <ng-template #noImage> 
-                <div class="mx-2 h-8 w-8 rounded-lg bg-neutral-400 leading-none flex items-center justify-center border-red-500">
+                <div class="mx-2 h-8 w-8 rounded-lg align-middle bg-neutral-400 leading-none flex items-center justify-center border-red-500">
                     <mat-icon svgIcon="mat:image" class="text-neutral-100 icon-base"></mat-icon>
                 </div>
             </ng-template>

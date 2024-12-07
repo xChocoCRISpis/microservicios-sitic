@@ -12,9 +12,9 @@ BEGIN
     EXEC('CREATE SCHEMA Order_Items');
 END
 
-IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'Cart_Item')
+IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'Cart_Items')
 BEGIN
-    EXEC('CREATE SCHEMA Cart_Item');
+    EXEC('CREATE SCHEMA Cart_Items');
 END
 
 

@@ -168,7 +168,12 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  errorImageHandler(){
-    this.errorImageLoad = true;
+  errorImageHandler(id:number){
+    for (let i = 0; i < this.productList.length; i++) {
+      if (this.productList[i].id === id) {
+        this.productList[i].imagePath = null;
+        break;
+      }
+    }
   }
 }

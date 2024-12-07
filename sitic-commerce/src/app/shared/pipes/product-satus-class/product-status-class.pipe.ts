@@ -11,7 +11,7 @@ export class ProductStatusClassPipe implements PipeTransform {
     bg_text:string;bg_border:string;bg_text_border:string;
     text_border:string;} {
 
-      console.log("pipeStockClass",{currentStock,minStock,maxStock})
+      //console.log("pipeStockClass",{currentStock,minStock,maxStock})
     enum eSections {
       background,
       text,
@@ -62,6 +62,7 @@ export class ProductStatusClassPipe implements PipeTransform {
         break;
     }
 
+    
 
     const primaryParts = {
       bg: classes.get(stockStatus).get(eSections.background),

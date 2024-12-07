@@ -12,8 +12,8 @@ BEGIN
 		[product_id] INT NOT NULL,                        -- Relación con el producto
 		[quantity] INT NOT NULL,                          -- Cantidad del producto en el carrito
 		[price] DECIMAL(18,2) NOT NULL,                   -- Precio del producto en el momento de añadirlo al carrito
-		[created_at] DATETIME DEFAULT GETDATE(),          -- Fecha de creación del item del carrito
-		[updated_at] DATETIME DEFAULT GETDATE(),          -- Fecha de última actualización del item del carrito
+		[created_at] DATETIME DEFAULT GETDATE() NOT NULL,          -- Fecha de creación del item del carrito
+		[updated_at] DATETIME DEFAULT GETDATE() NOT NULL,          -- Fecha de última actualización del item del carrito
 
 		FOREIGN KEY (cart_id) REFERENCES [dbo].[Carts]([id]),            -- Clave foránea a la tabla Carts
 		FOREIGN KEY (product_id) REFERENCES [dbo].[Products]([Id])       -- Clave foránea a la tabla Products

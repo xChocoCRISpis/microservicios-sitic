@@ -8,8 +8,8 @@ BEGIN
 	CREATE TABLE [dbo].[Carts]
 	(
 		[id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),  -- Identificador único del carrito
-		[created_at] DATETIME DEFAULT GETDATE(),       -- Fecha de creación del carrito
-		[updated_at] DATETIME DEFAULT GETDATE()        -- Fecha de última actualización del carrito
+		[created_at] DATETIME DEFAULT GETDATE() NOT NULL,       -- Fecha de creación del carrito
+		[updated_at] DATETIME DEFAULT GETDATE() NOT NULL      -- Fecha de última actualización del carrito
 	)
 END
 
