@@ -14,9 +14,9 @@ namespace VO
         public int Id { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public DateTime CreatedAt { get; set; }
+        public DateTime Created_At { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime Updated_At { get; set; }
     }
 }

@@ -14,10 +14,10 @@ namespace VO
         public int Id { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public int CartId { get; set; }
+        public int Cart_Id { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public int ProductId { get; set; }
+        public int Product_Id { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
         public int Quatity { get; set; }
@@ -26,9 +26,9 @@ namespace VO
         public double Price { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public DateTime CreatedAt { get; set; }
+        public DateTime Created_At { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime Updated_At { get; set; }
     }
 }
