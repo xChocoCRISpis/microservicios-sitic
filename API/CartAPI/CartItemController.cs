@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VO;
+using BLL;
 
 
 
@@ -85,6 +86,39 @@ namespace Services
                 _logger.LogError($"Error en ProductController {nameof(Insert)}: ${ex.Message}", ex);
             }
 
+            return response;
+        }
+
+
+        [HttpPut]
+        public ActionResult<CartItemResponse> Update(CartItemUpdateRequest req) {
+            CartItemResponse response = new();
+
+            try
+            {
+                response.IsSuccess = new BLL.CartBLL(Dao).ExecuteDBAction(eDbAction.Update, req.CartItem);
+            }
+            catch (Exception ex) {
+                response.Error = Utilities.ErrorHandler.Handler(ex);
+                _logger.LogError($"Error en ProductController {nameof(Update)}: {ex.Message}", ex);
+            }
+            return response;
+        }
+
+
+        [HttpDelete]
+        public ActionResult<CartItemResponse> Delete(int id) {
+
+            CartItemResponse response = new CartItemResponse();
+
+            try
+            {
+                response.IsSuccess = new CartBLL(Dao).ExecuteDBAction(eDbAction.Delete, new CartItem{ Id = id});
+            }
+            catch (Exception ex) {
+                response.Error = Utilities.ErrorHandler.Handler(ex); 
+                _logger.LogError($"Error en ProductController {nameof(Delete)}: {ex.Message}", ex);
+            }
             return response;
         }
     }

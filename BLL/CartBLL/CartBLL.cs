@@ -103,9 +103,13 @@ namespace BLL
                         eDbAction.Insert => CartItemsInsert(cartItem),
                         _ => throw new ArgumentException($"Acción no válida para CartItem: {action}")
                     },
+                    CartItemUpdate cartitem => action switch { 
+                        eDbAction.Update => CartItemsUpdate(cartitem),
+                        _ => throw new ArgumentException($"Acción no válida para CartItem: {action}")
+
+                    },
                     CartItem cartItem => action switch
                     {
-                        eDbAction.Update => CartItemsUpdate(cartItem),
                         eDbAction.Delete => CartItemsDelete(cartItem.Id),
                         _ => throw new ArgumentException($"Acción no válida para CartItem: {action}")
                     },
@@ -143,7 +147,7 @@ namespace BLL
             });
         }
 
-        private bool CartItemsUpdate(CartItem cartItem) {
+        private bool CartItemsUpdate(CartItemUpdate cartItem) {
             DAO.DAOClass dao = Dao;
 
             return TransactionUtils.ExecuteWithTransaction(ref dao, () =>

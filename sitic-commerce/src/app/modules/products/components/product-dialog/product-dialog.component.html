@@ -42,16 +42,16 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label>Stock Mínimo</mat-label>
-                    <input formControlName="maxStock" matInput type="number" (keypress)="sharedService.validateNumber($event)" />
-                    <mat-error *ngIf="formProduct.get('maxStock').hasError('required')">Este campo es requerido</mat-error>
-                    <mat-error *ngIf="formProduct.get('maxStock')?.hasError('min') && formProduct.get('maxStock')?.touched">El valor debe ser mayor a 0</mat-error>
+                    <input formControlName="minStock" matInput type="number" (keypress)="sharedService.validateNumber($event)" />
+                    <mat-error *ngIf="formProduct.get('minStock').hasError('required')">Este campo es requerido</mat-error>
+                    <mat-error *ngIf="formProduct.get('minStock')?.hasError('min') && formProduct.get('minStock')?.touched">El valor debe ser mayor a 0</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
                     <mat-label>Stock Máximo</mat-label>
-                    <input formControlName="minStock" matInput type="number" (keypress)="sharedService.validateNumber($event)" />
-                    <mat-error *ngIf="formProduct.get('minStock').hasError('required')">Este campo es requerido</mat-error>
-                    <mat-error *ngIf="formProduct.get('minStock')?.hasError('min') && formProduct.get('minStock')?.touched">El valor debe ser mayor a 0</mat-error>
+                    <input formControlName="maxStock" matInput type="number" (keypress)="sharedService.validateNumber($event)" />
+                    <mat-error *ngIf="formProduct.get('maxStock').hasError('required')">Este campo es requerido</mat-error>
+                    <mat-error *ngIf="formProduct.get('maxStock')?.hasError('min') && formProduct.get('maxStock')?.touched">El valor debe ser mayor a 0</mat-error>
                 </mat-form-field>
             </div>
         </div>

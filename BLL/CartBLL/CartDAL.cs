@@ -79,7 +79,7 @@ namespace DAL
             return _dao.QueryInformation($"{Schema.CartItems}.{Procedures.GetAll}");
         }
 
-
+        //No se porque da error cuando no hay stock, pero es lo de menos
         internal bool CartItemsInsert(CartItemInsert cartItem)
         {
             try
@@ -98,9 +98,9 @@ namespace DAL
             }
         }
 
-        internal bool CartItemsUpdate(CartItem cartItem)
+        internal bool CartItemsUpdate(CartItemUpdate cartItem)
         {
-            SqlParameterCollection parameters = Utilities.CommonUtils.AddParametersFromObject<CartItem>(cartItem);
+            SqlParameterCollection parameters = Utilities.CommonUtils.AddParametersFromObject<CartItemUpdate>(cartItem);
             return _dao.ExecuteProcedure($"{Schema.CartItems}.{Procedures.Update}", parameters) > 0;
         }
 
