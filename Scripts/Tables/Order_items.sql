@@ -12,8 +12,8 @@ BEGIN
 		[product_id] INT NOT NULL,                        -- Relación con el producto
 		[quantity] INT NOT NULL,                          -- Cantidad del producto en el pedido
 		[price] DECIMAL(18,2) NOT NULL,                   -- Precio del producto en el momento de añadirlo al pedido
-		[created_at] DATETIME DEFAULT GETDATE(),          -- Fecha de creación del item del pedido
-		[updated_at] DATETIME DEFAULT GETDATE(),           -- Fecha de última actualización del item en el pedido
+		[created_at] DATETIME NOT NULL DEFAULT GETDATE(),          -- Fecha de creación del item del pedido
+		[updated_at] DATETIME NOT NULL DEFAULT GETDATE(),           -- Fecha de última actualización del item en el pedido
 
 		FOREIGN KEY([order_id]) REFERENCES [dbo].[Orders]([id]),
 		FOREIGN KEY([product_id]) REFERENCES [dbo].[Products]([id])

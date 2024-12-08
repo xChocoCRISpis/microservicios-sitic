@@ -8,22 +8,21 @@ END;
 GO
 
 CREATE PROCEDURE [Cart_Items].[Insert]
-	@Cart_Id INT = NULL OUT, -- Es entrada y salida
+	@Cart_Id INT = 0 OUT, -- Es entrada y salida
 	@Product_Id INT,
 	@Quantity INT,
-	@Id INT OUT
+	@Id INT = 0 OUT
 WITH ENCRYPTION
 AS
 BEGIN
 	--Validar la existencia del producto y que haya suficiente stock;
 	IF NOT EXISTS (SELECT 1 FROM Products WHERE @Product_Id=id AND @Quantity <= current_stock) BEGIN
-		PRINT 'No existe el producto o no hay suficiente stock'
 		RETURN;
 	END;
 
 
 	--Si no viene un carro, significa que no existe, y por tanto se debe insertar
-	IF (@Cart_Id IS NULL) BEGIN
+	IF (@Cart_Id = 0) BEGIN
 		DECLARE @Inserted_cart INT;
 		-- Insertar un registro en la tabla carts con default values (solo para reservar el carrito)
 			INSERT INTO Carts DEFAULT VALUES;
@@ -42,8 +41,7 @@ BEGIN
 
 	END ELSE BEGIN
 		IF NOT EXISTS (SELECT 1 FROM Carts WHERE id=@Cart_ID)BEGIN
-			SET @Cart_Id = NULL;
-			PRINT 'El carro no existe';
+			SET @Cart_Id = 0;
 			RETURN;
 		END;
 
