@@ -8,7 +8,7 @@ END;
 GO
 
 CREATE PROCEDURE [Cart_Items].[GetAll]
-	@Id INT
+
 WITH ENCRYPTION
 AS
 BEGIN

@@ -8,13 +8,9 @@ using System.Threading.Tasks;
 namespace VO
 {
     [DataContract]
-    public class ProductResponse : Response
+    public class CartItemRequest
     {
         [DataMember(EmitDefaultValue = false)]
-        public Product Product { get; set; }
-        [DataMember(EmitDefaultValue = false)]
-
-        public List<Product> Products { get; set; }
-
+        public CartItem CartItem { get; set; }
     }
 }

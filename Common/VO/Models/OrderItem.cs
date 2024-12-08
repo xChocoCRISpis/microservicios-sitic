@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace VO
 {
     [DataContract]
-    public class OrderItems
+    public class OrderItem
     {
         [DataMember(EmitDefaultValue = false)]
         public int Id { get; set; }

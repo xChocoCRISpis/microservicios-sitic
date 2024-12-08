@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VO.Models
+namespace CartItemsBLL
 {
     public class Class1
     {

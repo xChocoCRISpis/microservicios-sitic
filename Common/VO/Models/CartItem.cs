@@ -8,27 +8,27 @@ using System.Threading.Tasks;
 namespace VO
 {
     [DataContract]
-    public class CartItems
+    public class CartItem
     {
         [DataMember(EmitDefaultValue = false)]
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public int Cart_Id { get; set; }
+        public virtual int Cart_Id { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public int Product_Id { get; set; }
+        public virtual int Product_Id { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public int Quatity { get; set; }
+        public virtual int Quantity { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public double Price { get; set; }
+        public virtual double Price { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public DateTime Created_At { get; set; }
+        public virtual DateTime Created_At { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public DateTime Updated_At { get; set; }
+        public virtual DateTime Updated_At { get; set; }
     }
 }

@@ -33,6 +33,7 @@ namespace VO
         NocheUwu = 100
     }
 
+
     //Representaciones
 
     /// <summary>
@@ -100,5 +101,12 @@ namespace VO
         /// Procedimiento para obtener todos los registros
         /// </summary>
         public static readonly string GetAll = "GetAll";
+
+
+        /// <summary>
+        /// Procedimiento para traer items de tablas compuestas
+        /// <summary>
+        /// 
+        public static readonly string GetItems = "GetItems";
     }
 }
