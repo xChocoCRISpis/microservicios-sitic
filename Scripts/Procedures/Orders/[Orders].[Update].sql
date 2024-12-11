@@ -9,18 +9,22 @@ GO
 
 CREATE PROCEDURE [Orders].[Update]
 	@Id INT,
-	@Status VARCHAR(50),
+	@Status INT,
 	@Total_Price DECIMAL(20,2) = NULL
 WITH ENCRYPTION
 AS
 BEGIN
+
+	DECLARE @Status_key VARCHAR(50) = (SELECT [key] FROM vw_OrderStatus WHERE id = @Status);
+
+
 	IF((@Total_Price IS NULL) OR (@Total_Price = 0)) BEGIN
 		UPDATE Orders SET
-			[status] = @Status
+			[status] = @Status_key
 		WHERE id = @Id;
 	END; ELSE BEGIN
 		UPDATE Orders SET
-			[status] = @Status,
+			[status] = @Status_key,
 			total_price = @Total_Price
 		WHERE id = @Id;
 	END;

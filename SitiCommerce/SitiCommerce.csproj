@@ -18,5 +18,9 @@
 			<HintPath>..\Ensamblados\net5.0\CartAPI.dll</HintPath>
 			<SpecificVersion>false</SpecificVersion>
 		</Reference>
+		<Reference Include="OrderAPI">
+			<HintPath>..\Ensamblados\net5.0\OrderAPI.dll</HintPath>
+			<SpecificVersion>false</SpecificVersion>
+		</Reference>
 	</ItemGroup>
 </Project>

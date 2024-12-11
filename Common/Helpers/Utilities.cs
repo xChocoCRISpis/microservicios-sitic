@@ -181,4 +181,31 @@ namespace Utilities
             });
         }
     }
+
+    /// <summary>
+    /// Clase para obtener el key(string) de la base de datos de el enum Order Status
+    /// </summary>
+    public class OrderStatusKey {
+        private readonly Dictionary<eOrderStatus, string> _status = new()
+        {
+            { eOrderStatus.Pending, "PENDING"},
+            { eOrderStatus.Sent, "SENT"},
+            { eOrderStatus.Completed,"COMPLETED"}
+        };
+
+        private string _value;
+        public  string value { get => _value; private set => _value = value; }
+
+
+        OrderStatusKey(eOrderStatus eStatus) {
+            if (_status.TryGetValue(eStatus, out var statusValue))
+            {
+                _value = statusValue;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid eOrderStatus value");
+            }
+        }
+    }
 }

@@ -20,6 +20,13 @@ namespace VO
         Delete
     }
 
+    public enum eOrderStatus
+    {
+        Pending = 1,
+        Sent,
+        Completed
+    }
+
     public enum eErrorType
     {
         None = 0,       //Ninguno
