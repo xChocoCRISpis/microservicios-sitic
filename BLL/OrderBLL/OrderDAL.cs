@@ -51,7 +51,7 @@ namespace DAL
                 parameters["@Cart_Id"].Direction = ParameterDirection.Input;
                 parameters["@Id"].Direction = ParameterDirection.Output;
 
-                var result = _dao.ExecuteProcedureWithIdentity($"{Schema.Orders}.{Procedures.Insert};", parameters);
+                var result = _dao.ExecuteProcedureWithIdentity($"{Schema.Orders}.{Procedures.Insert}", parameters);
 
                 return result > 0 && Dao.Identity > 0;
 
