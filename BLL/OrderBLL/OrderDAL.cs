@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Utilities;
 using VO;
@@ -29,11 +30,35 @@ namespace DAL
             return _dao.QueryInformation($"{Schema.Orders}.{Procedures.GetAll}");
         }
 
+        internal DataTable OrderGetItems(int id)
+        {
+            using (SqlCommand sqlCommand = new())
+            {
+                SqlParameterCollection parameters = sqlCommand.Parameters;
+                parameters.Add("@Id", SqlDbType.Int).Value = id;
+                return _dao.QueryInformation($"{Schema.Orders}.{Procedures.GetItems}", parameters);
+            }
+        }
+
         internal DataTable OrderGetById(int id) {
             using (SqlCommand sqlCommand = new()) {
                 SqlParameterCollection parameters = sqlCommand.Parameters;
                 parameters.Add("@Id", SqlDbType.Int).Value = id;
                 return _dao.QueryInformation($"{Schema.Orders}.{Procedures.GetById}",parameters);
+            }
+        }
+
+
+        internal DataTable OrderItemGetAll() {
+            return _dao.QueryInformation($"{Schema.OrderItems}.{Procedures.GetAll}");
+        }
+
+        internal DataTable OrderItemGetById(int id) {
+            using (SqlCommand sqlCommand = new()) { 
+                SqlParameterCollection parameters = sqlCommand.Parameters;
+                parameters.Add("@Id",SqlDbType.Int).Value=id;
+
+                return _dao.QueryInformation($"{Schema.OrderItems}.{Procedures.GetById}",parameters);
             }
         }
 
@@ -58,7 +83,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error en OrderDal {ex.Message}  \n $\"Cart_Id: {{order.Cart_Id}} \\n Id: {{order.Id}}\"");   
+                throw new Exception($"Error en OrderDal {ex.Message}");   
             }
         }
 
@@ -75,27 +100,44 @@ namespace DAL
             }
         }
 
+        internal bool OrderItemDelete(int id) {
+            using (SqlCommand sqlCommand = new()) {
+                SqlParameterCollection parameters = sqlCommand.Parameters;
+                parameters.Add("@Id", SqlDbType.Int).Value = id;
+
+
+                return _dao.ExecuteProcedure($"{Schema.OrderItems}.{Procedures.Delete}", parameters) > 0;
+            }
+        }
+
         internal bool OrderUpdate(OrderUpdate order) {
             try
             {
-                //Convertir a 0 para evitar errores
-                if(order.Total_Price == null)
-                    order.Total_Price = 0;
+           
 
                 SqlParameterCollection parameters = Utilities.CommonUtils.AddParametersFromObject<OrderUpdate>(order);
+                return _dao.ExecuteProcedure($"{Schema.Orders}.{Procedures.Update}", parameters) > 0;
 
-                parameters["@Id"].Direction = ParameterDirection.Input;
-                parameters["@Status"].Direction = ParameterDirection.Input;
-                parameters["@Total_Price"].Direction = ParameterDirection.Input;
-
-                var result = _dao.ExecuteProcedureWithIdentity($"{Schema.Orders}.{Procedures.Update};", parameters);
-
-                return result > 0 && Dao.Identity > 0;
 
             }
             catch (Exception ex)
             {
                 throw new Exception($"Error en OrderDal {ex.Message}");
+            }
+        }
+
+
+        internal bool OrderItemUpdate(OrderItemUpdate orderItem)
+        {
+            try
+            {
+                SqlParameterCollection parameters = Utilities.CommonUtils.AddParametersFromObject<OrderItemUpdate>(orderItem);
+
+                return _dao.ExecuteProcedure($"{Schema.OrderItems}.{Procedures.Update}", parameters) > 0;
+            }
+            catch (Exception ex) {
+                throw new Exception($"Error en OrderDal {ex.Message}");
+
             }
         }
     }

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VO;
+using BLL;
+
 
 namespace Services
 {
@@ -40,6 +42,57 @@ namespace Services
             {
                 response.Error = Utilities.ErrorHandler.Handler(ex);
                 _logger.LogError($"Error en OrderController {nameof(GetById)}: ${ex.Message}");
+            }
+
+            return response;
+        }
+
+
+        [HttpGet]
+        public ActionResult<OrderItemsResponse> ByIdOrderItems(int id)
+        {
+            OrderItemsResponse response = new();
+
+            try
+            {
+                Order order = new BLL.OrderBLL(Dao).OrderGetById(id);
+                List<OrderItem> orderItems = new BLL.OrderBLL(Dao).OrderGetItems(id);
+
+                response.Order = MapOrderWithItems(order, orderItems);
+                response.IsSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                response.Error = Utilities.ErrorHandler.Handler(ex);
+                _logger.LogError($"Error en OrderController {nameof(ByIdOrderItems)}: {ex.Message}");
+            }
+
+            return response;
+        }
+
+        [HttpGet]
+        public ActionResult<OrderItemsResponse> AllOrdersItems()
+        {
+            OrderItemsResponse response = new();
+
+            try
+            {
+                // Traer la lista de ordenes
+                List<Order> orders = new BLL.OrderBLL(Dao).OrderGetAll();
+
+                // Traer los items de cada orden y mapearlos correctamente
+                foreach (Order order in orders)
+                {
+                    List<OrderItem> orderItems = new BLL.OrderBLL(Dao).OrderGetItems(order.Id);
+                    response.Orders.Add(MapOrderWithItems(order, orderItems));
+                }
+
+                response.IsSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                response.Error = Utilities.ErrorHandler.Handler(ex);
+                _logger.LogError($"Error en OrderController {nameof(AllOrdersItems)}: {ex.Message}");
             }
 
             return response;
@@ -95,7 +148,7 @@ namespace Services
 
             try
             {
-                response.IsSuccess = new BLL.OrderBLL(Dao).ExecuteDBAction(eDbAction.Insert, request.Order);
+                response.IsSuccess = new BLL.OrderBLL(Dao).ExecuteDBAction(eDbAction.Update, request.Order);
             }
             catch (Exception ex)
             {
@@ -115,7 +168,7 @@ namespace Services
 
             try
             {
-                response.IsSuccess = new BLL.OrderBLL(Dao).ExecuteDBAction(eDbAction.Delete, new Cart { Id = id });
+                response.IsSuccess = new BLL.OrderBLL(Dao).ExecuteDBAction(eDbAction.Delete, new Order { Id = id });
             }
             catch (Exception ex)
             {
@@ -126,5 +179,20 @@ namespace Services
             return response;
         }
 
+
+
+
+        private OrderItems MapOrderWithItems(Order order, List<OrderItem> items)
+        {
+            return new OrderItems
+            {
+                Id = order.Id,
+                Total_Price = order.Total_Price,
+                Status = order.Status,
+                Created_At = order.Created_At,
+                Updated_At = order.Updated_At,
+                Items = items
+            };
+        }
     }
 }

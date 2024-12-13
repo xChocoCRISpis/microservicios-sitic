@@ -13,7 +13,7 @@ namespace VO
     public class OrderUpdateRequest : Request
     {
         [DataMember(EmitDefaultValue = false)]
-        public OrderUpdate Order;
+        public OrderUpdate Order { get; set; }
     }
 
     [DataContract]
@@ -25,8 +25,7 @@ namespace VO
         public eOrderStatus Status { get; set; }
          
         [DataMember(EmitDefaultValue = false)]
-        [AllowNull]
-        public double? Total_Price { get; set; }
+        public double Total_Price { get; set; }
 
     }
 
