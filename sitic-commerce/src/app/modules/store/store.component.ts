@@ -7,11 +7,12 @@ import { ProductsService } from 'src/app/shared/services/products.service';
 import { Product } from 'src/app/shared/interfaces/products/product.interface';
 import { ProductsResponse } from 'src/app/shared/interfaces/products/products-response.interface';
 import { eErrorType } from 'src/app/shared/interfaces/comun/enums.interface';
+import { SideBarCartComponent } from './side-bar-cart/side-bar-cart.component';
 
 @Component({
   selector: 'app-store',
   templateUrl: './store.component.html',
-  styleUrls: ['./store.component.scss']
+  styleUrls: ['./store.component.scss'],
 })
 export class StoreComponent implements OnInit {
 

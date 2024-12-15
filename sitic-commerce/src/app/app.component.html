@@ -15,6 +15,11 @@
         </div>
     </mat-sidenav>
 
+    <mat-sidenav position="end" mode="side" #cartbar
+    class="bg-slate-200 w-80 scrollbar-hide">
+        <side-bar-cart></side-bar-cart>
+    </mat-sidenav>
+
     <!-- Contenido principal -->
     <mat-sidenav-content class="flex flex-col bg-neutral-200">
         <!-- Barra superior -->
@@ -23,10 +28,21 @@
                 <mat-icon svgIcon="mat:menu" class="icon-base" inline="true"></mat-icon>
             </button>
             <span class="flex-1 basis-auto"></span>
-            <button mat-icon-button>
+            <button mat-icon-button (click)="cartbar.toggle()">
+                <!-- TODO: Hacer que con JS despues de con un time quitarle la clase animated-bounce -->
+                <ng-container *ngIf="productInCart && productInCart>0">
+                    <div class="rounded-full bg-blue-600/20 size-2/4 flex flex-col items-center justify-center
+                absolute -end-0 animate-bounce"
+                [ngClass]="">{{productInCart}}</div>
+                </ng-container>
+                
+
                 <mat-icon svgIcon="mat:shopping_cart" class="icon-base" inline="true"></mat-icon>
+
             </button>
         </mat-toolbar>
+
+
 
         <!-- Área de contenido -->
         <main class="flex-1 overflow-auto">
@@ -36,4 +52,5 @@
         <!-- Footer -->
         <footer class="bg-neutral-100 text-neutral-950 text-center p-4">&copy; 2024 {{ clientName }}. Todos los derechos reservados.</footer>
     </mat-sidenav-content>
+
 </mat-sidenav-container>

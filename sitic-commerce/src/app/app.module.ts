@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedService } from './shared/services/shared.service';
+import { SideBarCartModule } from './modules/store/side-bar-cart/side-bar-cart.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { SharedService } from './shared/services/shared.service';
     MatToolbarModule,
     MatIconModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
+
+    SideBarCartModule
   ],
   providers: [
     { provide: SharedService }

@@ -14,6 +14,14 @@ const routes: Routes = [
         loadChildren: () => import('./modules/store/store.module').then(m => m.StoreModule)
       },
       {
+        path: 'orders',
+        loadChildren: () => import('./modules/orders/orders.module').then(m => m.OrdersModule)
+      },
+      {
+        path:'cart',
+        loadChildren: () => import('./modules/cart/cart.component').then(m=>m.CartComponent)
+      },
+      {
         path: '',
         redirectTo: 'store',
         pathMatch: 'full' // Redirige a /products por defecto

@@ -11,6 +11,8 @@ import { ProductDialogModule } from './components/product-dialog/product-dialog.
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ChoiceDialogComponent } from './components/choice-dialog/choice-dialog.component';
 import { ChoiceDialogModule } from './components/choice-dialog/choice-dialog.module';
+import { CartService } from 'src/app/shared/services/carts/cart.service';
+import { CartItemService } from 'src/app/shared/services/carts/cart-item.service';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,6 @@ import { ChoiceDialogModule } from './components/choice-dialog/choice-dialog.mod
     // CUSTOM
     ProductDialogModule,
     ChoiceDialogModule
-  ]
+  ],
 })
 export class ProductsModule { }

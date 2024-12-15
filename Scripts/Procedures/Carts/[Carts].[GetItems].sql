@@ -21,7 +21,7 @@ BEGIN
 		ci.created_at AS Created_At,
 		ci.updated_at AS Updated_At
 	FROM Cart_Items ci
-	WHERE ci.id = @Id; 
+	WHERE ci.cart_id = @Id; 
 END
 GO
 EXEC sp_recompile N'[Carts].[GetItems]';

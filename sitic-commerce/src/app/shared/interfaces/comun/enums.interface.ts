@@ -19,6 +19,12 @@ export enum eErrorType {
     NocheUwu
 }
 
+export enum eOrderStatus{
+    Pending,
+    Send,
+    Completed
+}
+
 
 export enum eChoiceType {
     Caution,

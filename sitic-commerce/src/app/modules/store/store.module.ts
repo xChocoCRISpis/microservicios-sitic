@@ -6,12 +6,15 @@ import { ProductCardModule } from '../products/components/product-card/product-c
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { ProductSatusClassModule } from 'src/app/shared/pipes/product-satus-class/product-satus-class.module';
+import { SideBarCartModule } from './side-bar-cart/side-bar-cart.module';
+import { SideBarItemComponent } from './side-bar-item/side-bar-item.component';
+import { SideBarItemModule } from './side-bar-item/side-bar-item.module';
 
 
 
 @NgModule({
   declarations: [
-    StoreComponent
+    StoreComponent,
   ],
   imports: [
     CommonModule,
@@ -20,6 +23,7 @@ import { ProductSatusClassModule } from 'src/app/shared/pipes/product-satus-clas
     MatIconModule,
 
     ProductCardModule,
+
 
     //pipes
     ProductSatusClassModule
