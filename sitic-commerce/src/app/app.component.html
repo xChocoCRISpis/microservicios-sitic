@@ -31,7 +31,7 @@
             <button mat-icon-button (click)="cartbar.toggle()">
                 <!-- TODO: Hacer que con JS despues de con un time quitarle la clase animated-bounce -->
                 <ng-container *ngIf="productInCart && productInCart>0">
-                    <div class="rounded-full bg-blue-600/20 size-2/4 flex flex-col items-center justify-center
+                    <div class="rounded-full bg-blue-600/20 size-2/4 flex flex-col items-center justify-center text-clip
                 absolute -end-0 animate-bounce"
                 [ngClass]="">{{productInCart}}</div>
                 </ng-container>

@@ -19,7 +19,6 @@ export class SideBarItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("cartItem: ",this.cartItem)
     this.getProduct(this.cartItem.product_Id);
   }
 

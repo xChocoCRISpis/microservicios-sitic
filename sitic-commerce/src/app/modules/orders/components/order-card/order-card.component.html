@@ -1,0 +1,35 @@
+<div class="bg-neutral-100 shadow-md rounded-lg p-6 max-w-lg w-full">
+
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold text-neutral-800">Orden #{{ order?.id }}</h2>
+        <span class="text-sm text-neutral-600">{{ order?.created_At | date : 'shortDate' }}</span>
+    </div>
+
+    <div class="mb-4">
+        <p class="text-sm text-neutral-700"><span class="font-semibold">Estado:</span> {{ order?.status || 'Pendiente' }}</p>
+        <p class="text-sm text-neutral-700"><span class="font-semibold">Total:</span> ${{ order?.total_Price | number : '1.2-2' }}</p>
+    </div>
+
+    <!--TODO: esta seccion la separaría en otro componente en el cual se se ven los detalles de elemento para solo cargar lo que quiera ver el usuario -->
+    <div class="space-y-2">
+        <div *ngFor="let product of products" class="flex items-center justify-between bg-neutral-200 rounded-md p-2">
+            <div class="flex items-center gap-2">
+                <ng-container *ngIf="!imageErrorLoad else noImage">
+                    <img [src]="product.imagePath" alt="{{ product?.name }}" (error)="imageErrorLoad=true" 
+                    class="h-12 w-12 object-cover rounded" />
+                </ng-container>
+                <div>
+                    <p class="text-sm font-semibold text-neutral-800 truncate">
+                        {{ product?.name }}
+                    </p>
+                    <p class="text-xs text-neutral-600">Cantidad: {{ findOrderData(product?.id)?.quantity }}</p>
+                </div>
+            </div>
+            <p class="text-sm font-semibold text-neutral-700">${{ product?.price | number : '1.2-2' }}</p>
+        </div>
+
+        <ng-template #noImage>
+            <mat-icon svgIcon="mat:image" class="h-12 w-12 object-cover rounded"></mat-icon>
+        </ng-template>
+    </div>
+</div>

@@ -1,1 +1,18 @@
-<p>orders works!</p>
+<div class="shadow-md rounded bg-neutral-50 border-gray-900/60 mt-10 mx-5">
+    <span class="flex text-3xl p-4 pt-10">
+        <mat-icon svgIcon="mat:store" class="my-1 mx-5"></mat-icon>
+        Tus compras
+    </span>
+
+    <mat-divider class="pb-3 my-5 border-gray-900/10"></mat-divider>
+    
+    <ng-container *ngIf="orders.length > 0; else noOrders" class="flex flex-col items-center justify-center w-full p-10">
+        <div *ngFor="let order of orders">
+            <order-card [order]="order" [items]="order.items" class="w-full"> </order-card>
+        </div>
+    </ng-container>
+
+    <ng-template #noOrders>
+        <div class="text-center text-red-700/70">No tienes ordenes</div>
+    </ng-template>
+</div>
