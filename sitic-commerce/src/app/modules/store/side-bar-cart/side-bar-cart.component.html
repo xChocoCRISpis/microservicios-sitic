@@ -1,15 +1,16 @@
 <div class="flex flex-col items-center">
     <span class="font-extrabold text-blue-950 text-center pb-6 pt-10">MXN $Precio</span>
-    <button mat-raised-button
-    class="bg-slate-900 text-neutral-300 rounded-full hover:bg-slate-700 w-11/12 my-3">Ir al carrito</button>
-    <button mat-raised-button
-    class="bg-slate-900 text-neutral-300 rounded-full hover:bg-slate-700 w-11/12 my-3">Ordenar</button>
+    <button mat-raised-button class="bg-slate-900 text-neutral-300 rounded-full hover:bg-slate-700 w-11/12 my-3">Ir al carrito</button>
+    <button mat-raised-button class="bg-slate-900 text-neutral-300 rounded-full hover:bg-slate-700 w-11/12 my-3">Ordenar</button>
 
     <mat-divider class="my-5"></mat-divider>
 
-    <div class="grid grid-cols-2" >
-        <div *ngFor="let item of cartItems">
+    <div class="grid grid-cols-2">
+        <div *ngFor="let item of cartItems; let isLast = last">
             <side-bar-item [cartItem]="item"></side-bar-item>
-        <div>
+            <div *ngIf="isLast">
+                {{ emitStateLoad(true) }}
+            </div>
+        </div>
     </div>
 </div>

@@ -11,6 +11,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 import { MatButtonModule } from '@angular/material/button';
 import { SharedService } from './shared/services/shared.service';
 import { SideBarCartModule } from './modules/store/side-bar-cart/side-bar-cart.module';
@@ -30,6 +32,7 @@ import { SideBarCartModule } from './modules/store/side-bar-cart/side-bar-cart.m
     MatIconModule,
     MatListModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
 
     SideBarCartModule
   ],

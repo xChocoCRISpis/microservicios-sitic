@@ -25,6 +25,8 @@ export class AppComponent implements OnInit{
   cartList: Cart[] = [];
 
   cartbar!: MatSidenav;
+
+  onLoadCartBar:boolean=false;
   
 
   clientName = "SITICommerce";
