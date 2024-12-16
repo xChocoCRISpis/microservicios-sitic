@@ -1,18 +1,19 @@
-<div class="bg-slate-100/5 shadow-md rounded-lg m-4 p-4 text-sm flex flex-col items-center gap-3">
-    <span class="text-ellipsis text-gray-700 font-semibold text-center w-full truncate">{{ product.name }}</span>
+<div class="bg-neutral-50/40 shadow-md rounded-lg m-4 p-4 text-sm flex flex-col items-center gap-3">
+    <span class="text-ellipsis text-gray-700 font-semibold text-center w-full truncate">{{ product?.name }}</span>
 
-    <div class="h-1/4  w-2/4 flex items-center justify-center bg-slate-200 rounded-md overflow-hidden">
-        <ng-container *ngIf="!error; else noImage">
+    <div class="flex flex-col h-1/4  w-2/4 items-center justify-center bg-slate-200 rounded-md overflow-hidden">
+        <ng-container *ngIf="!error; else noImage" class="py-2">
             <img [src]="product.imagePath" (error)="error = !error" class="size-fit h-full w-full object-cover" />
         </ng-container>
         <ng-template #noImage>
             <mat-icon svgIcon="mat:image" class="text-gray-400 text-4xl size-fit"></mat-icon>
         </ng-template>
+        <span>${{cartItem.price}}</span>
     </div>
 
     <div class="grid grid-cols-3 items-center gap-2 w-full">
         <button class="bg-gray-600/10 text-gray-900 p-1 rounded-full hover:bg-gray-600/25 transition">+</button>
-        <span class="text-center font-semibold text-gray-900">{{ cartItem.quantity }}</span>
+        <span class="text-center font-semibold text-gray-900">{{ cartItem?.quantity }}</span>
         <button class="bg-gray-600/10 text-gray-900 p-1 rounded-full hover:bg-gray-600/25 transition">-</button>
     </div>
 </div>
