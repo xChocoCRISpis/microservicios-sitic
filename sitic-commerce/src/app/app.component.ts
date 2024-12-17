@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, OnDestroy } from "@angular/core";
 import { MatIconRegistry, SafeResourceUrlWithIconOptions } from "@angular/material/icon";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
@@ -17,7 +17,7 @@ import { MatSidenav } from "@angular/material/sidenav";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit,OnDestroy{
   //Forma de inyectar no directamente en el contructor (Me gusta cuando hay que innyectar muchos services)
 
 
@@ -78,6 +78,10 @@ export class AppComponent implements OnInit{
     } catch (error) {
       console.error("Error en OnInit:", error);
     }
+  }
+
+  ngOnDestroy(): void {
+    localStorage.removeItem("cart");
   }
   
   async setCartItems() {

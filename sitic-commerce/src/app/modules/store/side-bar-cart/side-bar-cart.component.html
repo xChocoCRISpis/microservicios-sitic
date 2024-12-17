@@ -1,19 +1,28 @@
 <div class="flex flex-col items-center">
-    <span class="font-extrabold text-blue-950 text-center pb-6 pt-10">MXN ${{calculatePrice()}}</span>
-    <button mat-raised-button class="bg-slate-900 text-neutral-300 rounded-full hover:bg-slate-700 w-11/12 my-3">Ir al carrito</button>
-    <button mat-raised-button class="bg-slate-900 text-neutral-300 rounded-full hover:bg-slate-700 w-11/12 my-3">Ordenar</button>
+    <span class="font-extrabold text-blue-950 text-center pb-6 pt-10">MXN ${{ calculatePrice() }}</span>
+    <button mat-raised-button class="bg-slate-900 text-neutral-300 rounded-full hover:bg-slate-700 w-11/12 my-3"
+            [disabled]="!haveItems()">Ir al carrito</button>
+    <button mat-raised-button class="bg-slate-900 text-neutral-300 rounded-full hover:bg-slate-700 w-11/12 my-3"
+            [disabled]="!haveItems()">Ordenar</button>
 
     <mat-divider class="my-5"></mat-divider>
 
-    <div class="grid grid-cols-2">
-        <div *ngIf="cartItems && cartItems.length > 0">
+    <div *ngIf="cartItems && cartItems.length > 0; else noItems">
+        <div class="grid grid-cols-2">
             <div *ngFor="let item of cartItems; let isLast = last">
-                <side-bar-item [cartItem]="item"></side-bar-item>
-                <div *ngIf="isLast">
-                    {{ emitStateLoad(true) }}
+                <side-bar-item [cartItem]="item" (refreshItem)="refreshState=$event"></side-bar-item>
+
+                <div *ngIf="isLast && !hasLoaded">
+                    {{ setLoaded() }}
                 </div>
             </div>
         </div>
-        
     </div>
+
+    <ng-template #noItems>
+        <span class="text-blue-600">No hay productos en el carro</span>
+        <div *ngIf="!hasLoaded">
+            {{ setLoaded() }}
+        </div>
+    </ng-template>
 </div>

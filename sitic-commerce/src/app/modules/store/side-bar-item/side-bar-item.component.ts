@@ -1,9 +1,12 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { CartItem } from "src/app/shared/interfaces/carts/cart-item/cart-item.interface";
 import { Product } from "src/app/shared/interfaces/products/product.interface";
 import { ProductsService } from "src/app/shared/services/products.service";
 import { eErrorType } from "src/app/shared/interfaces/comun/enums.interface";
 import { ProductsResponse } from "src/app/shared/interfaces/products/products-response.interface";
+import { CartItemService } from "src/app/shared/services/carts/cart-item.service";
+import { CartItemUpdate } from "src/app/shared/interfaces/carts/cart-item/requests/cart-item-insert.interface";
+import { CartItemResponse } from "src/app/shared/interfaces/carts/cart-item/responses/cart-item-response.interface";
 
 @Component({
   selector: "side-bar-item",
@@ -13,29 +16,115 @@ import { ProductsResponse } from "src/app/shared/interfaces/products/products-re
 export class SideBarItemComponent implements OnInit {
   /*  @Input() product:Product; */
   @Input() cartItem: CartItem;
+  @Output() refreshItem: EventEmitter<boolean> = new EventEmitter<boolean>();
   product: Product;
   error: boolean = false;
+  lowStock: boolean = false;
 
-  constructor(private readonly productService: ProductsService) {}
+  constructor(private readonly productService: ProductsService, private readonly cartItemService: CartItemService) {}
 
   ngOnInit(): void {
-    console.log("side bar item: ", this.product);
     console.log("side bar item: ", this.cartItem);
-    this.getProduct(this.cartItem.product_Id);
+    this.setProduct(this.cartItem.product_Id);
   }
 
-  async getProduct(itemId: number) {
+  async decrementItem(): Promise<boolean> {
+    const product: Product = await this.getProduct(this.cartItem.product_Id);
+    if (product.currentStock < this.cartItem.quantity -1) {
+      console.log("Falta stock");
+      return false;
+    }
+    const quantity = this.cartItem.quantity - 1;
+
+    if (quantity <= 0) {
+      const deleteCartItem = await this.deleteCartItem(this.cartItem.id);
+      this.refreshItem.emit(true);
+    } else {
+      const updateCartItem: boolean = await this.updateCartItem({
+        id: this.cartItem.id,
+        quantity
+      });
+
+      if (!updateCartItem) return false;
+    }
+    this.cartItem.quantity = quantity;
+    this.refreshItem.emit(true);
+    return true;
+  }
+
+  async incrementItem():Promise<boolean> {
+    const product: Product = await this.getProduct(this.cartItem.product_Id);
+    if (product.currentStock < this.cartItem.quantity) {
+      console.log("Falta stock");
+      return false;
+    }
+    const quantity = this.cartItem.quantity + 1;
+
+    const updateCartItem: boolean = await this.updateCartItem({
+      id: this.cartItem.id,
+      quantity
+    });
+
+    if (!updateCartItem) return false;
+
+    this.cartItem.quantity = quantity;
+    this.refreshItem.emit(true);
+
+    return true;
+  }
+
+  async setProduct(itemId: number) {
+    this.product = await this.getProduct(itemId);
+    console.log("side bar item: ", this.product);
+  }
+
+  async getProduct(itemId: number): Promise<Product> {
     try {
-      const product:ProductsResponse = await this.productService.getById(itemId);
+      const product: ProductsResponse = await this.productService.getById(itemId);
       if (product.error && product.error.errorType === eErrorType.None) {
         console.error(`Error: ${product.error.errorType}, ${product.error.message}`);
+        return product.product;
+      }
+      console.log(product.product);
+
+      return product.product;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async updateCartItem(cartItemUp: CartItemUpdate): Promise<boolean> {
+    try {
+      const res: CartItemResponse = await this.cartItemService.updateQuantity(cartItemUp);
+      console.log(res);
+      if (res.error && res.error.errorType === eErrorType.None) {
+        console.error(`Error: ${eErrorType.None}, ${res.error.message}`);
+        return false;
+      }
+      //Significa que no hay stock suficiente
+      if (res.isSuccess && res.error) {
+        console.error(`No hay stock suficiente`);
+        return false;
+      }
+
+      return true;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async deleteCartItem(id: number) {
+    try {
+      const res: CartItemResponse = await this.cartItemService.delete(id);
+
+      if (res.error && res.error.errorType === eErrorType.None) {
+        console.error(`Error: ${eErrorType.None}, ${res.error.message}`);
         return;
       }
 
-      this.product = product.product;
-      console.log(product.product);
-    } catch (error) {
-      console.error(error);
+      if (res.isSuccess) return;
+    } catch (e) {
+      console.error(e);
     }
   }
 }

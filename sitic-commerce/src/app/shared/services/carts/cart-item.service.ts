@@ -52,11 +52,9 @@ export class CartItemService {
    * @returns 
    */
   async updateQuantity(cartItem:CartItemUpdate):Promise<CartItemResponse>{
-    return await lastValueFrom(this.http.put<CartItemResponse>(`${this._actionsUrls}/Update`,{
-      params:{
-        cartItem
-      }
-    }));
+    
+
+    return await lastValueFrom(this.http.put<CartItemResponse>(`${this._actionsUrls}/Update`,{cartItem:cartItem}));
   }
 
   async delete(id:number):Promise<CartItemResponse>{

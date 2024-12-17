@@ -18,6 +18,13 @@ export class SideBarCartComponent implements OnInit {
   products: Product[] = [];
 
   @Output() isLoad: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() refresh: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  refreshState:boolean;
+
+  hasLoaded: boolean = false;
+
+
 
   
 
@@ -27,14 +34,25 @@ export class SideBarCartComponent implements OnInit {
   }
 
   async ngOnInit() {
+    if(this.refreshState) this.refresh.emit(true);
     this.setCartItems();
   }
 
-
   emitStateLoad(state: boolean) {
     setTimeout(() => {
-      this.isLoad.emit(state); // Emite false para ocultar el spinner
+      this.isLoad.emit(state);
+      console.log("se emitio un load: ", state)
     }, 2000);
+  }
+
+  setLoaded() {
+    if (!this.hasLoaded) {
+      this.hasLoaded = true;
+      setTimeout(() => {
+        this.isLoad.emit(true);
+        console.log("se emitio un load: ", true)
+      }, 2000);
+    }
   }
 
   getCartItems():CartWithItems {
@@ -64,8 +82,15 @@ export class SideBarCartComponent implements OnInit {
 
 
   calculatePrice():number{
-    return this.getCartItems().items.reduce((total, item) => {
-      return total + (item.price * item.quantity);
-    }, 0);
+    if(this.haveItems())
+      return this.getCartItems().items.reduce((total, item) => {
+        return total + (item.price * item.quantity);
+      }, 0);
+    else
+      return 0;
+  }
+
+  haveItems():boolean{
+    return this.getCartItems().items ?  true :  false
   }
 }

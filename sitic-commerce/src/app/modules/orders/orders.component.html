@@ -6,13 +6,13 @@
 
     <mat-divider class="pb-3 my-5 border-gray-900/10"></mat-divider>
     
-    <ng-container *ngIf="orders.length > 0; else noOrders" class="flex flex-col items-center justify-center w-full p-10">
-        <div *ngFor="let order of orders">
-            <order-card [order]="order" [items]="order.items" class="w-full"> </order-card>
+    <div *ngIf="orders.length > 0; else noOrders" class="flex flex-col items-center justify-center w-full p-10 " >
+        <div *ngFor="let order of orders" class="w-full">
+           <order-card [order]="order" [items]="order.items"> </order-card>
         </div>
-    </ng-container>
+    </div>
 
     <ng-template #noOrders>
-        <div class="text-center text-red-700/70">No tienes ordenes</div>
+        <div class="text-center text-neutral-700/70">No tienes ordenes</div>
     </ng-template>
 </div>
