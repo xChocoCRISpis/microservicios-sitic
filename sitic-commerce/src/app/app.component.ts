@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, OnDestroy } from "@angular/core";
+import { Component, Inject, OnInit, OnDestroy, OnChanges } from "@angular/core";
 import { MatIconRegistry, SafeResourceUrlWithIconOptions } from "@angular/material/icon";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 

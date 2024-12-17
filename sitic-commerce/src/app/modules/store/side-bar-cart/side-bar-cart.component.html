@@ -10,7 +10,7 @@
     <div *ngIf="cartItems && cartItems.length > 0; else noItems">
         <div class="grid grid-cols-2">
             <div *ngFor="let item of cartItems; let isLast = last">
-                <side-bar-item [cartItem]="item" (refreshItem)="refreshState=$event"></side-bar-item>
+                <side-bar-item [cartItem]="item" (refreshItem)="onItemRefresh($event);"></side-bar-item>
 
                 <div *ngIf="isLast && !hasLoaded">
                     {{ setLoaded() }}

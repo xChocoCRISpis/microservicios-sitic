@@ -20,6 +20,7 @@ export class SideBarItemComponent implements OnInit {
   product: Product;
   error: boolean = false;
   lowStock: boolean = false;
+  isLoading:boolean = false;
 
   constructor(private readonly productService: ProductsService, private readonly cartItemService: CartItemService) {}
 
@@ -48,6 +49,7 @@ export class SideBarItemComponent implements OnInit {
       if (!updateCartItem) return false;
     }
     this.cartItem.quantity = quantity;
+    this.cartItem.price = (this.cartItem.price/(quantity +1))*quantity;
     this.refreshItem.emit(true);
     return true;
   }
@@ -68,6 +70,7 @@ export class SideBarItemComponent implements OnInit {
     if (!updateCartItem) return false;
 
     this.cartItem.quantity = quantity;
+    this.cartItem.price = (this.cartItem.price/(quantity -1))*quantity;
     this.refreshItem.emit(true);
 
     return true;
@@ -75,56 +78,72 @@ export class SideBarItemComponent implements OnInit {
 
   async setProduct(itemId: number) {
     this.product = await this.getProduct(itemId);
-    console.log("side bar item: ", this.product);
   }
 
   async getProduct(itemId: number): Promise<Product> {
     try {
+      this.isLoading = true;
+
       const product: ProductsResponse = await this.productService.getById(itemId);
       if (product.error && product.error.errorType === eErrorType.None) {
         console.error(`Error: ${product.error.errorType}, ${product.error.message}`);
         return product.product;
       }
-      console.log(product.product);
 
+      this.isLoading =false;
       return product.product;
     } catch (error) {
       console.error(error);
+      this.isLoading =false;
     }
   }
 
   async updateCartItem(cartItemUp: CartItemUpdate): Promise<boolean> {
     try {
+      this.isLoading =true;
+
       const res: CartItemResponse = await this.cartItemService.updateQuantity(cartItemUp);
       console.log(res);
       if (res.error && res.error.errorType === eErrorType.None) {
         console.error(`Error: ${eErrorType.None}, ${res.error.message}`);
+        this.isLoading =false;
         return false;
       }
       //Significa que no hay stock suficiente
       if (res.isSuccess && res.error) {
         console.error(`No hay stock suficiente`);
+        this.isLoading =false;
         return false;
       }
-
+      this.isLoading =false;
       return true;
     } catch (e) {
       console.error(e);
+      this.isLoading =false;
+
     }
   }
 
   async deleteCartItem(id: number) {
     try {
+      this.isLoading =true;
+
       const res: CartItemResponse = await this.cartItemService.delete(id);
 
       if (res.error && res.error.errorType === eErrorType.None) {
         console.error(`Error: ${eErrorType.None}, ${res.error.message}`);
+        this.isLoading =false;
         return;
       }
 
-      if (res.isSuccess) return;
+      if (res.isSuccess) {
+        this.isLoading =false;
+        return false;
+      }
     } catch (e) {
       console.error(e);
+      this.isLoading =false;
+
     }
   }
 }

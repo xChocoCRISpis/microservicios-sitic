@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { AfterViewInit, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from "@angular/core";
 import { CartItem } from "src/app/shared/interfaces/carts/cart-item/cart-item.interface";
 import { Product } from "src/app/shared/interfaces/products/product.interface";
 /* import { cartItems, products } from "../side-bar-item/data-dummie"; */
@@ -12,7 +12,7 @@ import { eErrorType } from "src/app/shared/interfaces/comun/enums.interface";
   templateUrl: "./side-bar-cart.component.html",
   styleUrls: ["./side-bar-cart.component.scss"],
 })
-export class SideBarCartComponent implements OnInit {
+export class SideBarCartComponent implements OnInit,AfterViewInit {
   cartItems: CartItem[] = [];
 
   products: Product[] = [];
@@ -34,8 +34,17 @@ export class SideBarCartComponent implements OnInit {
   }
 
   async ngOnInit() {
-    if(this.refreshState) this.refresh.emit(true);
     this.setCartItems();
+  }
+
+  ngAfterViewInit(): void {
+    this.setLoaded();
+  }
+
+  onItemRefresh(event: boolean) {
+    if (event) {
+      this.refresh.emit(true);
+    }
   }
 
   emitStateLoad(state: boolean) {
@@ -57,11 +66,12 @@ export class SideBarCartComponent implements OnInit {
 
   getCartItems():CartWithItems {
     const cart: CartWithItems = (JSON.parse(localStorage.getItem("cart"))).cart;
+    console.log("cart obtenido del localStorage: ",cart)
     return cart; 
   }
 
   setCartItems(){
-    this.cartItems = this.getCartItems().items
+    this.cartItems = this.getCartItems().items;
   }
 
   async getProductById(id: number) {
@@ -84,7 +94,7 @@ export class SideBarCartComponent implements OnInit {
   calculatePrice():number{
     if(this.haveItems())
       return this.getCartItems().items.reduce((total, item) => {
-        return total + (item.price * item.quantity);
+        return total + item.price;
       }, 0);
     else
       return 0;
@@ -93,4 +103,5 @@ export class SideBarCartComponent implements OnInit {
   haveItems():boolean{
     return this.getCartItems().items ?  true :  false
   }
+
 }
