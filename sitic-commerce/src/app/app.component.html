@@ -20,7 +20,7 @@
         <div *ngIf="!onLoadCartBar" class="absolute inset-0 flex items-center justify-center bg-slate-200 z-10">
             <mat-progress-spinner color="primary" mode="indeterminate"> </mat-progress-spinner>
         </div>
-        <side-bar-cart (isLoad)="onLoadCartBar = $event" (refresh)="setCartItems()"></side-bar-cart>
+        <side-bar-cart (isLoad)="onLoadCartBar = $event" (refresh)="onRefresh()"></side-bar-cart>
     </mat-sidenav>
 
     <!-- Contenido principal -->
@@ -34,7 +34,7 @@
             <button mat-icon-button (click)="cartbar.toggle()">
                 <!-- TODO: Hacer que con JS despues de con un time quitarle la clase animated-bounce -->
                 <ng-container *ngIf="productInCart && productInCart > 0">
-                    <div class="rounded-full bg-blue-600/20 size-2/4 flex flex-col items-center justify-center text-clip absolute -end-0 animate-bounce" [ngClass]="">{{ productInCart }}</div>
+                    <div class="rounded-full bg-blue-600/20 size-2/4 flex flex-col items-center justify-center text-clip absolute -end-0 animate-bounce">{{ productInCart }}</div>
                 </ng-container>
 
                 <mat-icon svgIcon="mat:shopping_cart" class="icon-base" inline="true"></mat-icon>

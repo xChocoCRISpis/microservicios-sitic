@@ -6,35 +6,39 @@ import { CartWithItems } from "src/app/shared/interfaces/carts/cart/cart-with-it
 import { ProductsService } from "src/app/shared/services/products.service";
 import { ProductsResponse } from "src/app/shared/interfaces/products/products-response.interface";
 import { eErrorType } from "src/app/shared/interfaces/comun/enums.interface";
+import { MessengerService } from "src/app/shared/services/messenger.service";
 
 @Component({
   selector: "side-bar-cart",
   templateUrl: "./side-bar-cart.component.html",
   styleUrls: ["./side-bar-cart.component.scss"],
 })
-export class SideBarCartComponent implements OnInit,AfterViewInit {
+export class SideBarCartComponent implements OnInit, AfterViewInit {
   cartItems: CartItem[] = [];
+  totalPrice:number;
 
   products: Product[] = [];
 
   @Output() isLoad: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() refresh: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  refreshState:boolean;
+  refreshState: boolean;
 
   hasLoaded: boolean = false;
 
-
-
-  
-
-  constructor(private readonly productService: ProductsService) {
-/*     console.log("cartItem",this.cartItems);
+  constructor(
+    private readonly productService: ProductsService, 
+    private readonly messengerService:MessengerService) {
+    /*     console.log("cartItem",this.cartItems);
     console.log("cart",this.products); */
   }
 
-  async ngOnInit() {
-    this.setCartItems();
+  ngOnInit() {
+    this.messengerService.cart$.subscribe((cart:CartWithItems)=>{
+      this.cartItems = cart.items;
+      this.totalPrice = this.calculatePrice();
+    });
+
   }
 
   ngAfterViewInit(): void {
@@ -50,7 +54,7 @@ export class SideBarCartComponent implements OnInit,AfterViewInit {
   emitStateLoad(state: boolean) {
     setTimeout(() => {
       this.isLoad.emit(state);
-      console.log("se emitio un load: ", state)
+      console.log("se emitio un load: ", state);
     }, 2000);
   }
 
@@ -59,19 +63,20 @@ export class SideBarCartComponent implements OnInit,AfterViewInit {
       this.hasLoaded = true;
       setTimeout(() => {
         this.isLoad.emit(true);
-        console.log("se emitio un load: ", true)
+        console.log("se emitio un load: ", true);
       }, 2000);
     }
   }
 
-  getCartItems():CartWithItems {
-    const cart: CartWithItems = (JSON.parse(localStorage.getItem("cart"))).cart;
-    console.log("cart obtenido del localStorage: ",cart)
-    return cart; 
+  getCartItems(): CartWithItems {
+    const cart: CartWithItems = JSON.parse(localStorage.getItem("cart")).cart;
+    console.log("cart obtenido del localStorage: ", cart);
+    return cart;
   }
 
-  setCartItems(){
+  setCartItems() {
     this.cartItems = this.getCartItems().items;
+    this.emitStateLoad(true);
   }
 
   async getProductById(id: number) {
@@ -86,22 +91,19 @@ export class SideBarCartComponent implements OnInit,AfterViewInit {
         this.products.push(res.product);
       })
       .catch(error => {
-        console.error("Error al obtener los productos: ",error);
+        console.error("Error al obtener los productos: ", error);
       });
   }
 
-
-  calculatePrice():number{
-    if(this.haveItems())
-      return this.getCartItems().items.reduce((total, item) => {
+  calculatePrice(): number {
+    if (this.haveItems())
+      return this.cartItems.reduce((total, item) => {
         return total + item.price;
       }, 0);
-    else
-      return 0;
+    else return 0;
   }
 
-  haveItems():boolean{
-    return this.getCartItems().items ?  true :  false
+  haveItems(): boolean {
+    return this.getCartItems().items ? true : false;
   }
-
 }

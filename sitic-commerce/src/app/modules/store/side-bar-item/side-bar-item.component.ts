@@ -7,6 +7,7 @@ import { ProductsResponse } from "src/app/shared/interfaces/products/products-re
 import { CartItemService } from "src/app/shared/services/carts/cart-item.service";
 import { CartItemUpdate } from "src/app/shared/interfaces/carts/cart-item/requests/cart-item-insert.interface";
 import { CartItemResponse } from "src/app/shared/interfaces/carts/cart-item/responses/cart-item-response.interface";
+import { MessengerService } from "src/app/shared/services/messenger.service";
 
 @Component({
   selector: "side-bar-item",
@@ -22,7 +23,11 @@ export class SideBarItemComponent implements OnInit {
   lowStock: boolean = false;
   isLoading:boolean = false;
 
-  constructor(private readonly productService: ProductsService, private readonly cartItemService: CartItemService) {}
+  constructor(
+    private readonly productService: ProductsService, 
+    private readonly cartItemService: CartItemService,
+    private readonly messengerService:MessengerService
+  ) {}
 
   ngOnInit(): void {
     console.log("side bar item: ", this.cartItem);
@@ -39,7 +44,7 @@ export class SideBarItemComponent implements OnInit {
 
     if (quantity <= 0) {
       const deleteCartItem = await this.deleteCartItem(this.cartItem.id);
-      this.refreshItem.emit(true);
+      this.messengerService.emitCart();
     } else {
       const updateCartItem: boolean = await this.updateCartItem({
         id: this.cartItem.id,
@@ -50,7 +55,7 @@ export class SideBarItemComponent implements OnInit {
     }
     this.cartItem.quantity = quantity;
     this.cartItem.price = (this.cartItem.price/(quantity +1))*quantity;
-    this.refreshItem.emit(true);
+    this.messengerService.emitCart();
     return true;
   }
 
@@ -71,7 +76,7 @@ export class SideBarItemComponent implements OnInit {
 
     this.cartItem.quantity = quantity;
     this.cartItem.price = (this.cartItem.price/(quantity -1))*quantity;
-    this.refreshItem.emit(true);
+    this.messengerService.emitCart();
 
     return true;
   }

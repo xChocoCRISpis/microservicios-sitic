@@ -5,6 +5,9 @@ import { Product } from 'src/app/shared/interfaces/products/product.interface';
 import { ProductsService } from 'src/app/shared/services/products.service';
 import { ProductStatusClassPipe } from 'src/app/shared/pipes/product-satus-class/product-status-class.pipe'
 import { StringifyOptions } from 'querystring';
+import { MessengerService } from 'src/app/shared/services/messenger.service';
+import { privateEncrypt } from 'crypto';
+import { CartItemService } from 'src/app/shared/services/carts/cart-item.service';
 
 @Component({
   selector: 'product-card',
@@ -29,7 +32,12 @@ export class ProductCardComponent implements OnInit {
     imagePath:null,
     createdAt: new Date()
   }
-  constructor() { }
+
+  constructor(
+    private readonly messengerService:MessengerService,
+    private readonly cartItemService:CartItemService
+    
+  ) { }
 
   ngOnInit(): void {
   }
@@ -38,5 +46,8 @@ export class ProductCardComponent implements OnInit {
     this.imgError= true;
   }
 
+  addItem(){
+    /* this.cartItemService.addItemToCart(0,) */
+  }
 
 }

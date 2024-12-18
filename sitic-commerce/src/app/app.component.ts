@@ -11,6 +11,7 @@ import { Cart } from "./shared/interfaces/carts/cart/cart.interface";
 import { CartItem } from "./shared/interfaces/carts/cart-item/cart-item.interface";
 import { CartWithItems } from "./shared/interfaces/carts/cart/cart-with-items.interface";
 import { MatSidenav } from "@angular/material/sidenav";
+import { MessengerService } from "./shared/services/messenger.service";
 
 @Component({
   selector: "app-root",
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit,OnDestroy{
 
   productInCart: number = 0;
   cartList: Cart[] = [];
+  cart:CartWithItems;
 
   cartbar!: MatSidenav;
 
@@ -57,7 +59,9 @@ export class AppComponent implements OnInit,OnDestroy{
     private readonly matIconRegistry: MatIconRegistry, 
     private readonly domSanitizer: DomSanitizer,
     private readonly cartService:CartService,
-    private readonly cartItemService:CartItemService) {
+    private readonly cartItemService:CartItemService,
+    private readonly messengerService:MessengerService
+  ) {
     this.matIconRegistry.addSvgIconResolver(
       (name: string, namespace: string): SafeResourceUrl | SafeResourceUrlWithIconOptions | null => {
         switch (namespace) {
@@ -71,17 +75,16 @@ export class AppComponent implements OnInit,OnDestroy{
   }
 
   async ngOnInit() {
-    try {
-        await this.setCartItems();
-        this.productInCart = ((JSON.parse(localStorage.getItem("cart")).cart) as CartWithItems).items.length;
-        /* console.log(JSON.parse(localStorage.getItem("cart")).cart); */
-    } catch (error) {
-      console.error("Error en OnInit:", error);
-    }
+    this.messengerService.setCartItems();
+    this.messengerService.cart$.subscribe((cart:CartWithItems)=>{
+      this.cart = cart;
+      console.log("app products quantiry: ", cart.items.length);
+      this.productInCart = cart.items.length;
+    })
   }
 
   ngOnDestroy(): void {
-    localStorage.removeItem("cart");
+    this.messengerService.deleteCartOnLocalStorage();
   }
   
   async setCartItems() {
@@ -93,6 +96,16 @@ export class AppComponent implements OnInit,OnDestroy{
     }
     
     localStorage.setItem("cart",JSON.stringify({cart}));
+    this.productInCart = ((JSON.parse(localStorage.getItem("cart")).cart) as CartWithItems).items.length;
+
+  }
+
+  onRefresh() {
+    this.setCartItems().then(() => {
+      console.log("Carrito actualizado de forma síncrona");
+    }).catch(error => {
+      console.error("Error en onRefresh:", error);
+    });
   }
   
   async getCarts() {

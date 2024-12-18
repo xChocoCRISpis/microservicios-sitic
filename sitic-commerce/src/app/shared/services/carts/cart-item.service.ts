@@ -39,11 +39,11 @@ export class CartItemService {
  */
 
   async addItemToCart(cartItem:CartItemInsert):Promise<CartItemResponse>{
-    return await lastValueFrom(this.http.post<CartItemResponse>(`${this._actionsUrls}/Insert`,{
-      params:{
+    return await lastValueFrom(this.http.post<CartItemResponse>(`${this._actionsUrls}/Insert`,
+      {
         cartItem
       }
-    }));
+    ));
   }
   /**
    * Actualiza la cantidad de un producto en el carrito
