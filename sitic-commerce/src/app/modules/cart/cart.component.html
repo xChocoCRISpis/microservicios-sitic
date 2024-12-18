@@ -1,1 +1,48 @@
-<p>cart works!</p>
+<div class="container mx-10 mt-10 bg-neutral-50 shadow-lg rounded-lg p-5">
+    <div class="grid grid-cols-3 gap-6">
+        <div class="col-span-2 bg-white shadow-sm rounded-lg p-4">
+            <div class="flex items-center mb-4">
+                <mat-icon svgIcon="mat:shopping_cart_checkout" class="mx-3 text-gray-700"></mat-icon>
+                <h1 class="text-2xl font-bold text-gray-800">Carrito</h1>
+            </div>
+            <hr class="mb-4 border-gray-300" />
+            <!-- Items del ccarro -->
+            <ng-container>
+                <cart-item></cart-item>
+                <hr class="my-4 border-gray-300" />
+            </ng-container>
+
+            <div class="flex justify-between items-center mt-4">
+                <span class="text-lg font-semibold text-gray-700">Subtotal (1 producto):</span>
+                <span class="text-lg font-bold text-gray-900">$298.00</span>
+            </div>
+        </div>
+
+        <!-- Barra de resumen carro -->
+        <div class="col-span-1 bg-gray-50 rounded-lg shadow-sm p-5">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Resumen del carrito</h2>
+
+            <div class="flex flex-col gap-4 border-b border-gray-300 pb-4">
+                <!-- Producto -->
+                <div class="flex justify-between items-center">
+                    <div class="text-sm">
+                        <span class="font-semibold text-gray-700">Producto 1:</span>
+                        <p class="text-sm font-bold text-gray-900">$100</p>
+                    </div>
+                    <div class="text-sm text-right">
+                        <span class="font-semibold text-gray-700">Cantidad (2):</span>
+                        <p class="text-sm font-bold text-gray-900">$200</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total -->
+            <div class="flex justify-between items-center text-lg font-semibold text-gray-800 mt-4">
+                <span>Total:</span>
+                <span class="font-bold text-gray-900">$298.00</span>
+            </div>
+
+            <button mat-raised-button class="w-full bg-slate-700 hover:bg-slate-700/70 text-white font-bold py-3 rounded-md mt-5 transition duration-300">Proceder al pago</button>
+        </div>
+    </div>
+</div>

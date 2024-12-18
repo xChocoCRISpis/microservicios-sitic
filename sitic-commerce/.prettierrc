@@ -14,11 +14,11 @@
         {
             "files": "*.html",
             "options": {
-                "printWidth":500,          
-                "tabWidth": 4,            
-                "singleQuote": true,      
-                "proseWrap": "preserve",  
-                "bracketSpacing": true   
+                "printWidth": 500,
+                "tabWidth": 4,
+                "singleQuote": true,
+                "proseWrap": "preserve",
+                "bracketSpacing": true
             }
         }
     ]

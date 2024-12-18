@@ -1,0 +1,38 @@
+<div class="grid grid-cols-6 bg-gray-100 rounded-md p-4 shadow-md border border-gray-300 gap-4">
+    <!-- Imagen del producto (1/6 del tamaño total) -->
+    <div class="col-span-1 flex items-center justify-center">
+        <ng-container *ngIf="!errorLoadImage; else noImage">
+            <img src="/dasdsa" alt="Imagen del producto" (error)="errorLoadImage = true" class="w-full h-auto object-cover rounded-md" />
+        </ng-container>
+        <ng-template #noImage>
+            <mat-icon svgIcon="mat:hide_image" class="text-gray-500 text-4xl"></mat-icon>
+        </ng-template>
+    </div>
+
+    <!-- Información del producto (4/6 del tamaño total) -->
+    <div class="col-span-4 flex flex-col justify-between">
+        <div>
+            <span class="font-semibold text-gray-800">Nombre del producto</span>
+            <div class="text-sm text-gray-600">
+                <span>Precio unitario: $</span>
+                <span class="font-bold">$100</span>
+            </div>
+        </div>
+        <div class="text-sm text-gray-600">Cantidad disponible: <span class="font-bold">10</span></div>
+        <div class="text-sm text-gray-600">Subtotal: <span class="font-bold">$200</span></div>
+        <!-- Espacio para más información -->
+        <div class="text-sm text-gray-600">Detalle adicional: <span class="font-bold">Información aquí</span></div>
+    </div>
+
+    <div class="col-span-1 flex flex-col items-center content-center justify-center space-y-3">
+        <button mat-icon-button class="flex flex-col items-center content-center justify-center bg-gray-200 hover:bg-gray-300 text-gray-700 p-2 rounded-md w-full">
+            <mat-icon svgIcon="mat:remove"></mat-icon>
+        </button>
+        <button mat-icon-button class="flex flex-col items-center content-center justify-center bg-gray-200 hover:bg-gray-300 text-gray-700 p-2 rounded-md w-full">
+            <mat-icon svgIcon="mat:add"></mat-icon>
+        </button>
+        <button mat-icon-button class="flex flex-col items-center content-center justify-center bg-red-400 hover:bg-red-600/80 text-white p-2 rounded-md w-full">
+            <mat-icon svgIcon="mat:delete"></mat-icon>
+        </button>
+    </div>
+</div>

@@ -31,3 +31,15 @@ export enum eChoiceType {
     Accept,
     None
 }
+
+
+
+
+
+export enum eRoutes {
+    cart = "/cart",
+    orders = "/orders",
+    products = "/products",
+    store = "/store",
+    default = ""
+}

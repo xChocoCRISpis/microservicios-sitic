@@ -5,8 +5,9 @@ import { Product } from "src/app/shared/interfaces/products/product.interface";
 import { CartWithItems } from "src/app/shared/interfaces/carts/cart/cart-with-items.interface";
 import { ProductsService } from "src/app/shared/services/products.service";
 import { ProductsResponse } from "src/app/shared/interfaces/products/products-response.interface";
-import { eErrorType } from "src/app/shared/interfaces/comun/enums.interface";
+import { eErrorType, eRoutes } from "src/app/shared/interfaces/comun/enums.interface";
 import { MessengerService } from "src/app/shared/services/messenger.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "side-bar-cart",
@@ -26,9 +27,14 @@ export class SideBarCartComponent implements OnInit, AfterViewInit {
 
   hasLoaded: boolean = false;
 
+
+  
+
   constructor(
     private readonly productService: ProductsService, 
-    private readonly messengerService:MessengerService) {
+    private readonly messengerService:MessengerService,
+    private readonly router:Router
+  ) {
     /*     console.log("cartItem",this.cartItems);
     console.log("cart",this.products); */
   }
@@ -106,4 +112,5 @@ export class SideBarCartComponent implements OnInit, AfterViewInit {
   haveItems(): boolean {
     return this.getCartItems().items ? true : false;
   }
+
 }

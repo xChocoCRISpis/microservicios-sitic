@@ -18,18 +18,16 @@ import { MessengerService } from "./shared/services/messenger.service";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
 })
-export class AppComponent implements OnInit,OnDestroy{
+export class AppComponent implements OnInit, OnDestroy {
   //Forma de inyectar no directamente en el contructor (Me gusta cuando hay que innyectar muchos services)
-
 
   productInCart: number = 0;
   cartList: Cart[] = [];
-  cart:CartWithItems;
+  cart: CartWithItems;
 
   cartbar!: MatSidenav;
 
-  onLoadCartBar:boolean=false;
-  
+  onLoadCartBar: boolean = false;
 
   clientName = "SITICommerce";
   routes = [
@@ -56,11 +54,11 @@ export class AppComponent implements OnInit,OnDestroy{
   ];
 
   constructor(
-    private readonly matIconRegistry: MatIconRegistry, 
+    private readonly matIconRegistry: MatIconRegistry,
     private readonly domSanitizer: DomSanitizer,
-    private readonly cartService:CartService,
-    private readonly cartItemService:CartItemService,
-    private readonly messengerService:MessengerService
+    private readonly cartService: CartService,
+    private readonly cartItemService: CartItemService,
+    private readonly messengerService: MessengerService
   ) {
     this.matIconRegistry.addSvgIconResolver(
       (name: string, namespace: string): SafeResourceUrl | SafeResourceUrlWithIconOptions | null => {
@@ -76,38 +74,39 @@ export class AppComponent implements OnInit,OnDestroy{
 
   async ngOnInit() {
     this.messengerService.setCartItems();
-    this.messengerService.cart$.subscribe((cart:CartWithItems)=>{
+    this.messengerService.cart$.subscribe((cart: CartWithItems) => {
       this.cart = cart;
       console.log("app products quantiry: ", cart.items.length);
       this.productInCart = cart.items.length;
-    })
+    });
   }
 
   ngOnDestroy(): void {
     this.messengerService.deleteCartOnLocalStorage();
   }
-  
+
   async setCartItems() {
     await this.getCarts();
 
-    const cart:CartWithItems = {
-      data:this.cartList[0],
-      items:await this.getCartItems(this.cartList[0].id)
-    }
-    
-    localStorage.setItem("cart",JSON.stringify({cart}));
-    this.productInCart = ((JSON.parse(localStorage.getItem("cart")).cart) as CartWithItems).items.length;
+    const cart: CartWithItems = {
+      data: this.cartList[0],
+      items: await this.getCartItems(this.cartList[0].id),
+    };
 
+    localStorage.setItem("cart", JSON.stringify({ cart }));
+    this.productInCart = (JSON.parse(localStorage.getItem("cart")).cart as CartWithItems).items.length;
   }
 
   onRefresh() {
-    this.setCartItems().then(() => {
-      console.log("Carrito actualizado de forma síncrona");
-    }).catch(error => {
-      console.error("Error en onRefresh:", error);
-    });
+    this.setCartItems()
+      .then(() => {
+        console.log("Carrito actualizado de forma síncrona");
+      })
+      .catch(error => {
+        console.error("Error en onRefresh:", error);
+      });
   }
-  
+
   async getCarts() {
     try {
       const carts: CartResponse = await this.cartService.getAll();
@@ -115,7 +114,7 @@ export class AppComponent implements OnInit,OnDestroy{
         console.error(carts.error);
         return;
       }
-      
+
       if (carts.carts.length > 0) {
         this.cartList = carts.carts;
       } else {
@@ -125,16 +124,16 @@ export class AppComponent implements OnInit,OnDestroy{
       console.error(err);
     }
   }
-  
+
   async getCartItems(id: number): Promise<CartItem[]> {
     try {
       const res: CartItemResponse = await this.cartService.getItems(id);
-  
+
       if (res.error && res.error.errorType !== eErrorType.None) {
         console.error(res.error);
         return [];
       }
-  
+
       return res.cartItems;
     } catch (error) {
       console.error(error);

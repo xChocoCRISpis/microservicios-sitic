@@ -14,6 +14,7 @@ import { eChoiceType, eErrorType, eScreenStatus } from "src/app/shared/interface
 import { ProductsResponse } from "src/app/shared/interfaces/products/products-response.interface";
 import { Product } from "src/app/shared/interfaces/products/product.interface";
 import { ChoiceDialogComponent } from "./components/choice-dialog/choice-dialog.component";
+import { CartWithItems } from "src/app/shared/interfaces/carts/cart/cart-with-items.interface";
 
 @Component({
   selector: "app-products",
@@ -39,6 +40,7 @@ export class ProductsComponent implements OnInit {
   errorImageLoad:boolean = false;
 
   searchElement:HTMLInputElement;
+  messengerService: any;
 
   constructor(private dialog: MatDialog, private productsService: ProductsService) {}
 

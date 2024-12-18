@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { SideBarItemModule } from '../side-bar-item/side-bar-item.module';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 
 
@@ -22,7 +23,10 @@ import { SideBarItemModule } from '../side-bar-item/side-bar-item.module';
     MatButtonModule,
     MatListModule,
 
-    SideBarItemModule
+    SideBarItemModule,
+
+    AppRoutingModule
+
 
   ],
   exports:[

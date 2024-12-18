@@ -3,7 +3,7 @@
     <button mat-raised-button class="bg-slate-900 text-neutral-300 rounded-full hover:bg-slate-700 w-11/12 my-3"
             [disabled]="!haveItems()">Ir al carrito</button>
     <button mat-raised-button class="bg-slate-900 text-neutral-300 rounded-full hover:bg-slate-700 w-11/12 my-3"
-            [disabled]="!haveItems()">Ordenar</button>
+            [disabled]="!haveItems()" [routerLink]="'/cart'">Ordenar</button>
 
     <mat-divider class="my-5"></mat-divider>
 
