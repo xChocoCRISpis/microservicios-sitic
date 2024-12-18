@@ -1,6 +1,6 @@
 <div class="bg-neutral-50/40 shadow-md rounded-lg m-4 p-4 text-sm flex flex-col items-center gap-3">
     <ng-template #loader class="w-6/12 h-6/12">
-        <mat-progress-spinner color="primary" mode="indeterminate" #loader></mat-progress-spinner>
+        <mat-progress-spinner color="primary" mode="indeterminate" #loader class="w-6/12 h-6/12"></mat-progress-spinner>
     </ng-template>
 
     <ng-container *ngIf="!isLoading; else loader">
@@ -16,8 +16,11 @@
             <span>${{ cartItem.price }}</span>
         </div>
 
+        <span *ngIf="lowStock" class="bg-neutral-100/10 rounded-full text-red-600 fixed z-10 text-center fadeOutAnimation pointer-events-none">No hay suficiente stock</span>
         <div class="grid grid-cols-3 items-center gap-2 w-full">
-            <button class="bg-gray-600/10 text-gray-900 p-1 rounded-full hover:bg-gray-600/25 transition" (click)="incrementItem()">+</button>
+            <button class="bg-gray-600/10 text-gray-900 p-1 rounded-full hover:bg-gray-600/25 transition" 
+            (click)="incrementItem()"
+            [disabled]="lowStock">+</button>
             <span class="text-center font-semibold text-gray-900">{{ cartItem?.quantity }}</span>
             <button class="bg-gray-600/10 text-gray-900 p-1 rounded-full hover:bg-gray-600/25 transition" (click)="decrementItem()">-</button>
         </div>

@@ -38,6 +38,7 @@ export class SideBarItemComponent implements OnInit {
     const product: Product = await this.getProduct(this.cartItem.product_Id);
     if (product.currentStock < this.cartItem.quantity -1) {
       console.log("Falta stock");
+      this.setLowStock(true);
       return false;
     }
     const quantity = this.cartItem.quantity - 1;
@@ -61,8 +62,9 @@ export class SideBarItemComponent implements OnInit {
 
   async incrementItem():Promise<boolean> {
     const product: Product = await this.getProduct(this.cartItem.product_Id);
-    if (product.currentStock < this.cartItem.quantity) {
+    if (product.currentStock <= this.cartItem.quantity) {
       console.log("Falta stock");
+      this.setLowStock(true);
       return false;
     }
     const quantity = this.cartItem.quantity + 1;
@@ -150,5 +152,13 @@ export class SideBarItemComponent implements OnInit {
       this.isLoading =false;
 
     }
+  }
+
+
+  setLowStock(state:boolean){
+    this.lowStock=state;
+    setTimeout(()=>{
+      this.lowStock = !state;
+    }, 1000 * 600);
   }
 }

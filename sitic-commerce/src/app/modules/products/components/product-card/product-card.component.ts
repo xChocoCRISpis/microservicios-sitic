@@ -8,6 +8,12 @@ import { StringifyOptions } from 'querystring';
 import { MessengerService } from 'src/app/shared/services/messenger.service';
 import { privateEncrypt } from 'crypto';
 import { CartItemService } from 'src/app/shared/services/carts/cart-item.service';
+import { CartService } from 'src/app/shared/services/carts/cart.service';
+import { CartItemInsert } from 'src/app/shared/interfaces/carts/cart-item/requests/cart-item-update.interface';
+import { CartWithItems } from 'src/app/shared/interfaces/carts/cart/cart-with-items.interface';
+import { cartItems } from 'src/app/modules/store/side-bar-item/data-dummie';
+import { eErrorType } from 'src/app/shared/interfaces/comun/enums.interface';
+import { ProductsResponse } from 'src/app/shared/interfaces/products/products-response.interface';
 
 @Component({
   selector: 'product-card',
@@ -16,9 +22,11 @@ import { CartItemService } from 'src/app/shared/services/carts/cart-item.service
 })
 export class ProductCardComponent implements OnInit {
 
-  private serviceProducts = Inject(ProductsService);
   imgError:boolean = false;
   currentDate : Date|string = new Date(new Date().setDate(new Date().getDate() - 2)).toISOString() ;
+  isLoad:boolean = true;
+  lowStock:boolean = false;
+  existsInCart:boolean = false;
 
   @Input() product: Product = {
     id:1,
@@ -35,19 +43,91 @@ export class ProductCardComponent implements OnInit {
 
   constructor(
     private readonly messengerService:MessengerService,
-    private readonly cartItemService:CartItemService
+    private readonly cartItemService:CartItemService,
+    private readonly serviceProducts:ProductsService
     
   ) { }
 
   ngOnInit(): void {
+    this.isLoad = false;
+    if(this.product.currentStock < 1) this.lowStock = true;
   }
 
   errorHandlerImg(){
     this.imgError= true;
   }
 
-  addItem(){
-    /* this.cartItemService.addItemToCart(0,) */
+  async addItem() {
+    this.isLoad = true;
+    const product = await this.getProduct(this.product.id);
+  
+    if (product && product.currentStock < 1) {
+      this.lowStock = true;
+      return;
+    }
+  
+    // Inicializa `cartItemInsert` con valores predeterminados
+    let cartItemInsert: CartItemInsert = {
+      id: 0,
+      cart_Id: 0,
+      product_Id: this.product.id,
+      quantity: 1,
+    };
+  
+    const cart: CartWithItems = this.messengerService.getCartFromLocalStorage();
+  
+    if (cart?.items.find(item => item.product_Id === this.product.id)) {
+      this.isLoad = false;
+      this.setExists();
+      return;
+    }
+  
+    if (cart) {
+      cartItemInsert.cart_Id = cart.data.id;
+    }
+  
+    await this.insertItem(cartItemInsert);
+    this.messengerService.emitCart();
+    this.isLoad = false;
+  }
+  
+
+  async insertItem(cartItem:CartItemInsert){
+    try{
+      const response = await this.cartItemService.addItemToCart(cartItem);
+
+      if(response.error && response.error.errorType !== eErrorType.None){
+        console.error(response.error);
+
+        return;
+      }
+
+    }catch(e){
+      console.error(e);
+    }
+  }
+
+  async getProduct(id:number):Promise<Product>{
+    try{
+      const resp:ProductsResponse = await this.serviceProducts.getById(id);
+      const {product} = resp;
+
+      if (resp.error && resp.error.errorType !== eErrorType.None) {
+        console.error(resp.error);
+        return product;
+      }
+
+      return product;
+    }catch(e){
+      console.error(e);
+    }
+  }
+
+  setExists(){
+    this.existsInCart = true;
+    setInterval(()=>{
+      this.existsInCart = false;
+    },5000)
   }
 
 }

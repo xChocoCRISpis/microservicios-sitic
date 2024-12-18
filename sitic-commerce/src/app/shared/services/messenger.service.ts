@@ -6,7 +6,7 @@ import { CartItemService } from './carts/cart-item.service';
 import { Cart } from '../interfaces/carts/cart/cart.interface';
 import { CartItem } from '../interfaces/carts/cart-item/cart-item.interface';
 
-
+//ESTE SERVICIO LO USO APRA REALIZAR OPERACIONES CON OBSERVABLES AL CART, PARA ACTUALIZAR TODOS LOS COMPONETES QUE NECESITEN INFORMACION DEL CART Y LOCALSOTRAGE
 @Injectable({
   providedIn: 'root'
 })
@@ -58,5 +58,9 @@ export class MessengerService {
   deleteCartOnLocalStorage(){
     localStorage.removeItem(this.CART_KEY);
     this.cart.next(null);
+  }
+
+  getCartFromLocalStorage():CartWithItems{
+    return (JSON.parse(localStorage.getItem(this.CART_KEY))).cart as CartWithItems;
   }
 }

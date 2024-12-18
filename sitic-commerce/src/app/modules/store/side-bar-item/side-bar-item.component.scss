@@ -1,0 +1,19 @@
+$duracion-desaparicion: 5s;
+
+
+.fadeOutAnimation {
+    opacity: 1;
+    transition: opacity $duracion-desaparicion ease-in-out;
+    animation: desvanecer $duracion-desaparicion forwards;
+}
+
+
+@keyframes desvanecer {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
