@@ -75,7 +75,7 @@ export class ProductCardComponent implements OnInit {
     };
 
     const cart: CartWithItems = this.messengerService.getCartFromLocalStorage();
-    const itemExists = cart?.items.find(item => item.product_Id === this.product.id);
+    const itemExists = cart?.items?.find(item => item.product_Id === this.product.id);
 
     if (itemExists) {
       if (product.currentStock >= itemExists.quantity + 1) {

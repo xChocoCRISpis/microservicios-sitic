@@ -13,7 +13,7 @@ import { environment } from '../../../environments/environment';
 export class ProductsService {
 
     private _actionUrls: string;
-    constructor(public http: HttpClient) {
+    constructor(private readonly http: HttpClient) {
         this._actionUrls = `${environment.URI_SERVER}/Product`;;
     }
 

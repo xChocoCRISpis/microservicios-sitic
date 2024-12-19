@@ -5,6 +5,7 @@ import { CartRoutingModule } from './cart-routing.module';
 import { CartItemModule } from './cart-item/cart-item.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { CartItemSummarizeModule } from './cart-item-summarize/cart-item-summarize.module';
 
 
 
@@ -15,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     CommonModule,
     CartRoutingModule,
+    CartItemSummarizeModule,
 
 
     MatButtonModule,

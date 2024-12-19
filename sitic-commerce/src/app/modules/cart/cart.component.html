@@ -7,14 +7,25 @@
             </div>
             <hr class="mb-4 border-gray-300" />
             <!-- Items del ccarro -->
-            <ng-container>
-                <cart-item></cart-item>
+            <ng-container *ngIf="quantityProducts>0; else noItem">
+                <div *ngFor="let product of products">
+                    <cart-item [product]="product" [cartItem]="findProductData(product.id)" ></cart-item>
+                </div>
                 <hr class="my-4 border-gray-300" />
             </ng-container>
 
+            <ng-template #noItem>
+                <div class="flex flex-col p-40 bg-gray-100 rounded-md shadow-md border border-gray-300 gap-4">
+                    <span class="text-slate-700 text-2xl font-extrabold"> No hay items en el carro</span>
+                </div>
+            </ng-template>
+
             <div class="flex justify-between items-center mt-4">
-                <span class="text-lg font-semibold text-gray-700">Subtotal (1 producto):</span>
-                <span class="text-lg font-bold text-gray-900">$298.00</span>
+                <span class="text-lg font-semibold text-gray-700">Total ({{ quantityProducts }} producto<ng-container *ngIf="quantityProducts > 1">s</ng-container>):</span>
+                <span class="text-lg font-bold text-gray-900">${{total}}
+
+
+                </span>
             </div>
         </div>
 
@@ -23,26 +34,18 @@
             <h2 class="text-xl font-bold text-gray-800 mb-4">Resumen del carrito</h2>
 
             <div class="flex flex-col gap-4 border-b border-gray-300 pb-4">
-                <!-- Producto -->
-                <div class="flex justify-between items-center">
-                    <div class="text-sm">
-                        <span class="font-semibold text-gray-700">Producto 1:</span>
-                        <p class="text-sm font-bold text-gray-900">$100</p>
-                    </div>
-                    <div class="text-sm text-right">
-                        <span class="font-semibold text-gray-700">Cantidad (2):</span>
-                        <p class="text-sm font-bold text-gray-900">$200</p>
-                    </div>
+                <div *ngFor="let product of products">
+                    <cart-item-summarize [product]="product" [cartItem]="findProductData(product.id)"></cart-item-summarize>
                 </div>
-            </div>
 
-            <!-- Total -->
-            <div class="flex justify-between items-center text-lg font-semibold text-gray-800 mt-4">
-                <span>Total:</span>
-                <span class="font-bold text-gray-900">$298.00</span>
-            </div>
+                <!-- Total -->
+                <div class="flex justify-between items-center text-lg font-semibold text-gray-800 mt-4">
+                    <span>Total:</span>
+                    <span class="font-bold text-gray-900">${{ total }}</span>
+                </div>
 
-            <button mat-raised-button class="w-full bg-slate-700 hover:bg-slate-700/70 text-white font-bold py-3 rounded-md mt-5 transition duration-300">Proceder al pago</button>
+                <button mat-raised-button [disabled]="quantityProducts <= 0" class="w-full bg-slate-700 hover:bg-slate-700/70 text-white font-bold py-3 rounded-md mt-5 transition duration-300">Proceder al pago</button>
+            </div>
         </div>
     </div>
 </div>
