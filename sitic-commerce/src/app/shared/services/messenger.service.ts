@@ -50,7 +50,7 @@ export class MessengerService {
 
   async setCartItems(){
     await this.getCart();
-    if(!this.cartWithoutItems || this.cartItems){
+    if(!this.cartWithoutItems || !this.cartItems){
       this.cart.next(null);
     }
 

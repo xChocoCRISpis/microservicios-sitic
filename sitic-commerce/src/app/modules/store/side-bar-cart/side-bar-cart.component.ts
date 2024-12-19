@@ -41,7 +41,7 @@ export class SideBarCartComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.messengerService.cart$.subscribe((cart:CartWithItems)=>{
-      this.cartItems = cart.items;
+      this.cartItems = cart?.items;
       this.totalPrice = this.calculatePrice();
     });
 

@@ -41,7 +41,7 @@ export class CartComponent implements OnInit, AfterViewInit {
     this.isLoading = true;
 
     this.messengerService.cart$.subscribe(async (cart: CartWithItems) => {
-      if (!cart || cart.items.length === 0) {
+      if (!cart || cart.items?.length === 0 || !cart.items) {
         this.emptyCart = true;
         return;
       }
@@ -74,14 +74,14 @@ export class CartComponent implements OnInit, AfterViewInit {
 
   setTotal(){
     if (this.cart && this.cart.items)
-      this.total = this.cart.items.reduce((sum, item) => sum + item.price,0);
+      this.total = this.cart.items?.reduce((sum, item) => sum + item.price,0);
     else 
       this.total = 0;
     
   }
 
   findProductData(product_Id: number): CartItem {
-    return this.cart?.items.find((item: CartItem) => item.product_Id === product_Id);
+    return this.cart?.items?.find((item: CartItem) => item.product_Id === product_Id);
   }
 
   private getProductById(id: number): Promise<Product> {
