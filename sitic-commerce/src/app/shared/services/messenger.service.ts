@@ -51,6 +51,7 @@ export class MessengerService {
   async setCartItems(){
     await this.getCart();
     if(!this.cartWithoutItems || !this.cartItems){
+      this.deleteCartOnLocalStorage();
       this.cart.next(null);
     }
 

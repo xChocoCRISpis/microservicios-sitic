@@ -76,7 +76,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.messengerService.setCartItems();
     this.messengerService.cart$.subscribe((cart: CartWithItems) => {
       this.cart = cart;
-        this.productInCart = cart.items?.length;
+        this.productInCart = cart?.items?.length;
     });
   }
 

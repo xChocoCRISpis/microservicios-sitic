@@ -61,7 +61,7 @@ export class ProductCardComponent implements OnInit {
     const product = await this.getProduct(this.product.id);
 
     if (product && product.currentStock < 1) {
-      this.product.currentStock = product.currentStock;
+      this.product.currentStock = product?.currentStock;
       this.lowStock = true;
       return;
     }
@@ -86,7 +86,7 @@ export class ProductCardComponent implements OnInit {
       return;
     }
 
-    if (cart) {
+    if (cart && cart.data) {
       cartItemInsert.cart_Id = cart.data.id;
     }
 

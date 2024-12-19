@@ -75,8 +75,17 @@ export class SideBarCartComponent implements OnInit, AfterViewInit {
   }
 
   getCartItems(): CartWithItems {
-    const cart: CartWithItems = JSON.parse(localStorage.getItem("cart")).cart;
-    console.log("cart obtenido del localStorage: ", cart);
+    const storedCart = localStorage.getItem("cart");
+    if (!storedCart) {
+      return { data: null, items: [] };
+    }
+  
+    const cart = JSON.parse(storedCart)?.cart;
+    if (!cart || !cart.items) {
+      return { data: null, items: [] };
+    }
+  
+    console.log("Carrito obtenido del localStorage:", cart);
     return cart;
   }
 
@@ -101,16 +110,18 @@ export class SideBarCartComponent implements OnInit, AfterViewInit {
       });
   }
 
-  calculatePrice(): number {
-    if (this.haveItems())
-      return this.cartItems.reduce((total, item) => {
-        return total + item.price;
-      }, 0);
-    else return 0;
-  }
-
   haveItems(): boolean {
-    return this.getCartItems().items ? true : false;
+    const cart = this.getCartItems();
+    return (cart && cart.items && cart.items.length > 0);
+  }
+  
+  calculatePrice(): number {
+    const cart = this.getCartItems();
+    if (!cart || !cart.items) {
+      return 0;
+    }
+  
+    return cart.items.reduce((total, item) => total + item.price, 0);
   }
 
 }
