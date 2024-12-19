@@ -16,6 +16,7 @@ import { ProductsService } from 'src/app/shared/services/products.service';
 export class OrdersComponent implements OnInit {
 
   orders:OrderItems[] =[];
+  isLoad:boolean = true;
 
   constructor(
     private readonly serviceOrder:OrderService,
@@ -27,6 +28,7 @@ export class OrdersComponent implements OnInit {
   }
 
   async getAllOrdersAndItems(){
+    this.isLoad = false;
     await this.serviceOrder.getAllOrdersItems().then(
       (response:OrderItemsResponse)=>{
         if(response.error && response.error.errorType === eErrorType.None){
@@ -39,5 +41,8 @@ export class OrdersComponent implements OnInit {
     .catch(error => {
       console.error("Error no determinado: ",error)
     });
+
+    this.isLoad = true;
+
   }
 }

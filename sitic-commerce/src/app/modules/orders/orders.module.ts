@@ -5,6 +5,7 @@ import { OrdersRoutingModule } from './orders-routing.module';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { OrderCardModule } from './components/order-card/order-card.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -18,6 +19,7 @@ import { OrderCardModule } from './components/order-card/order-card.module';
 
     MatIconModule,
     MatDividerModule,
+    MatProgressBarModule,
 
     OrderCardModule
   ],

@@ -43,6 +43,11 @@ export class CartComponent implements OnInit, AfterViewInit {
     this.messengerService.cart$.subscribe(async (cart: CartWithItems) => {
       if (!cart || cart.items?.length === 0 || !cart.items) {
         this.emptyCart = true;
+      this.cart = null;
+      this.products = [];
+      this.quantityProducts = 0;
+      this.total = 0;
+      this.isLoading = false;
         return;
       }
 
@@ -97,6 +102,9 @@ export class CartComponent implements OnInit, AfterViewInit {
       .catch((error) => {
         console.error(`Error al obtener producto con id ${id}:`, error);
         return null;
+      })
+      .finally(() => {
+        this.isLoading = false;
       });
   }
 

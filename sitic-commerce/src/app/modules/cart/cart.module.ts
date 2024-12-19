@@ -6,6 +6,7 @@ import { CartItemModule } from './cart-item/cart-item.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CartItemSummarizeModule } from './cart-item-summarize/cart-item-summarize.module';
+import {  MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -21,6 +22,7 @@ import { CartItemSummarizeModule } from './cart-item-summarize/cart-item-summari
 
     MatButtonModule,
     MatIconModule,
+    MatProgressBarModule,
 
 
     CartItemModule

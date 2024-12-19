@@ -85,7 +85,6 @@ export class SideBarCartComponent implements OnInit, AfterViewInit {
       return { data: null, items: [] };
     }
   
-    console.log("Carrito obtenido del localStorage:", cart);
     return cart;
   }
 
