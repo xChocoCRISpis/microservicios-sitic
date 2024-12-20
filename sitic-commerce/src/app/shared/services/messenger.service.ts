@@ -11,6 +11,7 @@ import { CartItem } from '../interfaces/carts/cart-item/cart-item.interface';
   providedIn: 'root'
 })
 export class MessengerService {
+  //El behaviorsubjeject es un observable que emite el ultimo esta cuando se suscribe alguna parte
   private cart: BehaviorSubject<CartWithItems | null> = new BehaviorSubject<CartWithItems>(null); 
   private cartWithoutItems: Cart;
   private cartItems:CartItem[];

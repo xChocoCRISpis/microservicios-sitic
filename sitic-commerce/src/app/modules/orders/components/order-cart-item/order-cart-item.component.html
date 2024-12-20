@@ -1,0 +1,26 @@
+<div class="grid grid-cols-6 items-center space-y-3 bg-neutral-200 rounded-md p-2">
+    <div class="col-span-4">
+        <div class="flex items-center gap-4">
+            <ng-container *ngIf="!imageErrorLoad else noImage">
+                <img [src]="product.imagePath" alt="{{ product?.name }}" (error)="imageErrorLoad=true" 
+                class="h-12 w-12 object-cover rounded" />
+            </ng-container>
+            <div>
+                <p class="text-sm font-semibold text-neutral-800 truncate">
+                    {{ product?.name }}
+                </p>
+                <p class="text-xs text-neutral-600">Cantidad: {{ orderItem.quantity }}</p>
+                <p class="text-xs font-medium text-neutral-700">Precio unitario: ${{ orderItem.price/orderItem.quantity | number : '1.2-2' }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-span-2 flex items-center justify-end">
+        <p class="text-sm font-semibold text-neutral-800">Subtotal: ${{ orderItem.price | number : '1.2-2' }}</p>
+    </div>
+</div>
+
+
+<ng-template #noImage>
+    <mat-icon svgIcon="mat:image" class="h-12 w-12 object-cover rounded"></mat-icon>
+</ng-template>

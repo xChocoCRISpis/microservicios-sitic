@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderCardComponent } from './order-card.component';
 import { MatIconModule } from '@angular/material/icon';
+import { OrderCartItemModule } from '../order-cart-item/order-cart-item.module';
 
 
 
@@ -11,7 +12,9 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   imports: [
     CommonModule,
-    MatIconModule
+    MatIconModule,
+
+    OrderCartItemModule
   ],
   exports:[
     OrderCardComponent

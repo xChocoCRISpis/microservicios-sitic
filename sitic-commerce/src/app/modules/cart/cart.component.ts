@@ -22,6 +22,7 @@ export class CartComponent implements OnInit, AfterViewInit {
   quantityProducts: number = 0;
   total: number = 0;
   products: Product[] = [];
+  stockLowInCart: boolean = false;
 
   constructor(
     private readonly messengerService: MessengerService,
@@ -29,7 +30,7 @@ export class CartComponent implements OnInit, AfterViewInit {
     private readonly orderService: OrderService
   ) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.loadCart();
   }
 
@@ -42,26 +43,19 @@ export class CartComponent implements OnInit, AfterViewInit {
 
     this.messengerService.cart$.subscribe(async (cart: CartWithItems) => {
       if (!cart || cart.items?.length === 0 || !cart.items) {
-        this.emptyCart = true;
-      this.cart = null;
-      this.products = [];
-      this.quantityProducts = 0;
-      this.total = 0;
-      this.isLoading = false;
+        this.resetParams();
         return;
       }
 
       this.cart = cart;
 
-      //Obtengo un arreglo de promises    
-      const productPromises = cart.items.map((item) =>
-        this.getProductById(item.product_Id)
-      );
+      //Obtengo un arreglo de promises
+      const productPromises: Promise<Product>[] = cart.items.map(item => this.getProductById(item.product_Id));
 
       // Promise all ejecuta un arreglo de promesas y retorna el arreglo si no hay un reject
       this.products = (await Promise.all(productPromises)).filter(
         //Filtro las promseas resueltas para devolver solo los que no esten vacios
-        (product) => product !== null
+        product => product !== null
       );
 
       this.setQuantityOfProducts();
@@ -72,21 +66,54 @@ export class CartComponent implements OnInit, AfterViewInit {
     });
   }
 
+  async createOrder() {
+    if(!this.cart && !this.cart.items){
+      return;
+    }
 
-  setQuantityOfProducts(){
-    this.quantityProducts = this.cart.items.reduce((sum,product)=> sum + product.quantity,0);
+    const productPromises: Promise<Product>[] = this.cart.items.map((item: CartItem) =>
+      this.getProductById(item.product_Id)
+    );
+
+    const products: Product[] = (await Promise.all(productPromises)).filter(product => product !== null);
+
+    const itemsWithStockAvaliable:CartItem[] = this.cart.items.filter(
+      (item: CartItem) =>
+        item.quantity <= products.find((product: Product) => product.id === item.product_Id).currentStock
+    );
+
+    if(itemsWithStockAvaliable.length !== this.cart.items.length){
+      this.stockLowInCart = true;
+      this.messengerService.emitCart();
+      return;
+    }
+
+
+    const order: Order = await this.insertOrder(this.cart.data.id);
+    console.log(order);
+    this.messengerService.emitCart();
   }
 
-  setTotal(){
-    if (this.cart && this.cart.items)
-      this.total = this.cart.items?.reduce((sum, item) => sum + item.price,0);
-    else 
-      this.total = 0;
-    
+  setQuantityOfProducts() {
+    this.quantityProducts = this.cart.items.reduce((sum, product) => sum + product.quantity, 0);
+  }
+
+  setTotal() {
+    if (this.cart && this.cart.items) this.total = this.cart.items?.reduce((sum, item) => sum + item.price, 0);
+    else this.total = 0;
   }
 
   findProductData(product_Id: number): CartItem {
     return this.cart?.items?.find((item: CartItem) => item.product_Id === product_Id);
+  }
+
+  resetParams() {
+    this.emptyCart = true;
+    this.cart = null;
+    this.products = [];
+    this.quantityProducts = 0;
+    this.total = 0;
+    this.isLoading = false;
   }
 
   private getProductById(id: number): Promise<Product> {
@@ -99,7 +126,7 @@ export class CartComponent implements OnInit, AfterViewInit {
         }
         return res.product;
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(`Error al obtener producto con id ${id}:`, error);
         return null;
       })
@@ -113,13 +140,14 @@ export class CartComponent implements OnInit, AfterViewInit {
     return this.orderService
       .add({ id: 0, cart_Id })
       .then((res: OrderResponse) => {
+        console.log(res);
         if (res.error && res.error.errorType !== eErrorType.None) {
           console.error(`Error en insertOrder: ${res.error}`);
           return null;
         }
         return res.order;
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error);
         return null;
       })

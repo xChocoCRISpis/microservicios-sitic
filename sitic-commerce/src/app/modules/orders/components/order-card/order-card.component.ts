@@ -13,8 +13,8 @@ import { ProductsService } from "src/app/shared/services/products.service";
   styleUrls: ["./order-card.component.scss"],
 })
 export class OrderCardComponent implements OnInit {
-  @Input() order!: Order;
-  @Input() items!: OrderItem[];
+  @Input() order: Order;
+  @Input() items: OrderItem[];
 
   products: Product[] =[];
 
@@ -52,7 +52,9 @@ export class OrderCardComponent implements OnInit {
   }
 
 
-  findOrderData(product_Id:number):OrderItem{
-    return  this.items.find(item => item.product_Id === product_Id);
+  findOrder(product_Id:number):OrderItem{
+    const item:OrderItem =   this.items?.find(item => item.product_Id === product_Id);
+    console.log(item);
+    return item;
   }
 }

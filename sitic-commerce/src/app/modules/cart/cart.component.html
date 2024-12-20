@@ -46,7 +46,7 @@
                     <span class="font-bold text-gray-900">${{ total }}</span>
                 </div>
 
-                <button mat-raised-button [disabled]="quantityProducts <= 0" class="w-full bg-slate-700 hover:bg-slate-700/70 text-white font-bold py-3 rounded-md mt-5 transition duration-300">Proceder al pago</button>
+                <button mat-raised-button (click)="createOrder()" [disabled]="quantityProducts <= 0" class="w-full bg-slate-700 hover:bg-slate-700/70 text-white font-bold py-3 rounded-md mt-5 transition duration-300">Proceder al pago</button>
             </div>
         </div>
     </div>

@@ -22,6 +22,10 @@ const routes: Routes = [
         loadChildren: () => import('./modules/cart/cart.module').then(m=>m.CartModule)
       },
       {
+        path: 'about',
+        loadChildren: () => import('./modules/info/info.module').then(m => m.InfoModule)
+      },
+      {
         path: '',
         redirectTo: 'store',
         pathMatch: 'full' // Redirige a /products por defecto

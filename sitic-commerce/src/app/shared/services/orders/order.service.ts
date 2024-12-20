@@ -42,20 +42,12 @@ export class OrderService {
   }
 
   async add(order:OrderInsert):Promise<OrderResponse>{
-    return await lastValueFrom(this.http.post<OrderResponse>(`${this._actionUrls}/Insert`,{
-      params:{
-        order
-      }
-    }));
+    return await lastValueFrom(this.http.post<OrderResponse>(`${this._actionUrls}/Insert`,{order}));
   }
 
 
   async update(order:OrderUpdate):Promise<OrderResponse>{
-    return await lastValueFrom(this.http.put<OrderResponse>(`${this._actionUrls}/Update`,{
-      params:{
-        order
-      }
-    }));
+    return await lastValueFrom(this.http.put<OrderResponse>(`${this._actionUrls}/Update`,{order}));
   }
 
   async delete(id:number):Promise<OrderResponse>{

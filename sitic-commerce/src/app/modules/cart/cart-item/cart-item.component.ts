@@ -22,6 +22,7 @@ export class CartItemComponent implements OnInit {
 
   lowStock: boolean = false;
   isLoading:boolean = false;
+  canDeleteItem:boolean = false;
 
 
   constructor(
@@ -31,6 +32,8 @@ export class CartItemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.canDeleteItem = this.product.currentStock < this.cartItem.quantity;
+    this.lowStock = this.product.currentStock < this.cartItem.quantity;
   }
 
 
@@ -163,8 +166,9 @@ export class CartItemComponent implements OnInit {
 
   setLowStock(state:boolean){
     this.lowStock=state;
+    this.canDeleteItem = !state;
     setTimeout(()=>{
       this.lowStock = !state;
-    }, 1000 * 600);
+    }, 3000);
   }
 }
