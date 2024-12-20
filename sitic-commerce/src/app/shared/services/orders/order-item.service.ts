@@ -31,11 +31,7 @@ export class OrderItemService {
   }
 
   async update(orderItem:OrderItemsUpdate){
-    return await lastValueFrom(this.http.put<OrderItemResponse>(`${this._actionUrls}/Update`,{
-      params:{
-        orderItem
-      }
-    }));
+    return await lastValueFrom(this.http.put<OrderItemResponse>(`${this._actionUrls}/Update`,{orderItem}));
   }
 
   async delete(id:number):Promise<OrderItemResponse>{
