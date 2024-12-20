@@ -67,6 +67,7 @@ export class CartComponent implements OnInit, AfterViewInit {
   }
 
   async createOrder() {
+    //TODO: Refactorizar este mosntruo xd
     if(!this.cart && !this.cart.items){
       return;
     }

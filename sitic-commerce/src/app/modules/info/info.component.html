@@ -1,1 +1,123 @@
-<p>info works!</p>
+<div class="bg-gray-100 min-h-screen p-10 flex flex-col items-center">
+    <!-- Encabezado -->
+    <header class="text-center mb-10">
+        <h1 class="text-4xl font-bold text-gray-800 underline underline-offset-8">Acerca de mí</h1>
+    </header>
+
+    <!-- Información personal -->
+    <section class="w-10/12 bg-white rounded-lg shadow-lg p-10 mb-12">
+        <div class="flex flex-col items-center">
+            <img src="assets/dino.gif" alt="gif de dinosaurio en patineta xd" class="w-36 h-36 object-cover rounded-full shadow-md mb-6" />
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Información personal</h2>
+            <span class="text-lg text-gray-600 font-bold flex">Nombre: 
+                <p class="font-normal mx-2">
+                    Christopher Hernández Castañeda
+                </p>
+            </span>
+            <span class="text-lg text-gray-600 font-bold flex">Semestre:  
+                <p class="font-normal mx-2">
+                    Noveno semestre <b>(egresado)</b>
+                </p>
+            </span>
+            <span class="text-lg text-gray-600 font-bold flex">Escuela:  
+                <p class="font-normal mx-2">
+                    Instituto Tecnológico Superior de Lerdo <b>(Ingeniería en sistemas computacionales)</b>
+                </p>
+            </span>
+        </div>
+    </section>
+
+    <!-- Reflexión -->
+    <section class="w-10/12 bg-gray-50 rounded-lg shadow-lg p-10 mb-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Reflexión</h2>
+        <span class="text-lg text-gray-600 font-bold">Opinión sobre el curso.<br>
+            <p class="font-normal mx-10 mb-10">
+                Me parecio una buena experiencia, ya que pude aprender nuevas tecnologías,
+                además me permitío reforzar mis conocimientos previos, gracias a los tutores y sobre todo a 
+                María y Andrea que siempre estuvieron al pendiente de nosotros ayduandonos en todo momento y compartiendo su conocimiento,
+                y también a mis compañeros que con sus diferentes participaciones me permitieron aprender de ellos.
+            </p>
+        </span>
+
+        <span class="text-lg text-gray-600 font-bold">Aprendizajes obtenidos.<br>
+            <p class="font-normal mx-10 mb-10">
+                Durante el curso pude aprender nuevas tecnolgías como Angular(15) con modules y .NET Api's, además de todas 
+                la buenas prácticas que he podido aprendido y voy a intentar implementar de aquí en adelante. <br>
+                Auque ya había trabajado con Anular anteriormente, solo lo pude hacer con standalone components, por lo que me pareció interesante
+                la otra forma de trabajar con Angular. <br>
+                <br>
+                También pude aprender a trabajar con .NET Api's, ya que anteriormente solo había trabajado con Node.js y NestJs, por lo que me pareció interesante
+                y algo más complicado debido a el uso de compilador y la forma más estricta de trabajar con .NET. <br>
+                <br>
+                Algo que tambien me parecío muy interesante fue el como se trabajo de una forma más limpia la base de datos son documentación, válidación, el uso de schemas,
+                y distintas cosas que aprendí como el re_compile en los stored procedures.
+            </p>
+        </span>
+
+        <span class="text-lg text-gray-600 font-bold">Reflexión personal.<br>
+            <p class="font-normal mx-10 mb-10">
+                El curso me pareció muy bueno ya que muy aparte de aprender nuevas tecnologías, pude aprender y mejorar mis fundamentos y buenas prácticas,
+                además de que me permitió conocer a personas muy talentosas y con las que pude aprender mucho, y también me permitió conocer a personas muy amables con las cuales me encantaría poder seguir conociendo.
+            </p>
+        </span>
+    </section>
+
+    <!-- Proyectos -->
+    <section class="w-10/12 bg-gray-50 rounded-lg shadow-lg p-10 mb-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Proyectos anteriores</h2>
+        <p class="text-lg text-center mb-10 text-gray-600">
+            Como puse en la sección de <b>reflexión</b> ya había realiado proyectos anteriormente con Angular y Node.js, por eso quize compartir un poco de ellos.
+        </p>
+        <div class="flex flex-col md:grid-cols-3 gap-6">
+            <!-- SICAT -->
+            <div class="grid grid-cols-6 bg-white rounded-lg shadow-lg p-6 items-center">
+                <div class="col-span-3 flex justify-center">
+                    <div class="grid grid-cols-2 grid-rows-2 gap-2 w-full h-full bg-gray-200 rounded-md overflow-hidden">
+                        <img src="assets/sicat/sicat1.webp" alt="Imagen 1" class="object-cover w-full h-full" />
+                        <img src="assets/sicat/sicat2.webp" alt="Imagen 2" class="object-cover w-full h-full" />
+                        <img src="assets/sicat/sicat3.webp" alt="Imagen 3" class="object-cover w-full h-full" />
+                        <img src="assets/sicat/sicat4.webp" alt="Imagen 4" class="object-cover w-full h-full" />
+                    </div>
+                </div>
+
+                <div class="col-span-3 flex flex-col justify-center bg-neutral-50 p-4 rounded-md">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">SICAT. <br> (Sistema integral de gestión de actividades extraescolares del ITSL).</h3>
+                    <p class="text-sm text-gray-600">
+                        Participe en este proyecto junto a cuatro compañeros. Durante el proyecto realice una Aplicación Web con Angular 18,
+                        Nest.js 10, MongoDB y MySQL. Algunas de las funciones del sistema era el envío de correos automatizados,
+                        getión de usuarios, alumnos y profesores, uso de la API de ImgBB para guardar imagenes, etc.</p>
+                </div>
+            </div>
+
+            <!-- Inventary -->
+            <div class="grid grid-cols-6 bg-white rounded-lg shadow-lg p-6 items-center">
+                <div class="col-span-3 flex justify-center">
+                    <div class="grid grid-cols-2 grid-rows-2 gap-2 w-full h-full bg-gray-200 rounded-md overflow-hidden">
+                        <img src="assets/inventary/inventary1.webp" alt="Imagen de invenatary 1" class="object-cover w-full h-full" />
+                        <img src="assets/inventary/inventary2.webp" alt="Imagen 2" class="object-cover w-full h-full" />
+                        <img src="assets/inventary/inventary3.webp" alt="Imagen 3" class="object-cover w-full h-full" />
+                        <img src="assets/inventary/inventary4.webp" alt="Imagen 4" class="object-cover w-full h-full" />
+                    </div>
+                </div>
+
+                <div class="col-span-3 flex flex-col justify-center bg-neutral-50 p-4 rounded-md">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Inventary. <br> (Hecho en residencia profesional).</h3>
+                    <p class="text-sm text-gray-600"> 
+                        Durante seis meses realice “Inventary” un Aplicación Web hecha con Angular 18 y Node.js para gestión y creación de inventarios,
+                        con integración a la API de Mercado Libre, con la cual se pueden subir productos además de que con un WebSocket se puede realizar tranmisión
+                        de datos en tiempo real. 
+                    </p>    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="w-10/12 bg-gray-50 rounded-lg shadow-lg p-10 flex flex-col items-center">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Contacto</h2>
+        <p class="text-lg text-gray-600 mb-4">Correo: <b>crisneeda&#64;gmail.com</b></p>
+        <p class="text-lg text-gray-600 mb-4">Teléfono: <b>8715081665</b></p>
+        <img src="assets/github-icon.svg" alt="logo github" class="mt-10 mb-2"> 
+        <a href="https://github.com/xChocoCRISpis" target="_blank" class="text-blue-600 font-semibold hover:underline text-lg"> Mi GitHub </a>
+    </section>
+</div>
