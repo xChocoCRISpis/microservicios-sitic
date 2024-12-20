@@ -13,12 +13,13 @@ CREATE PROCEDURE [Cart_Items].[Update]
 WITH ENCRYPTION
 AS
 BEGIN
-	UPDATE Cart_Items SET 
-		quantity = @Quantity,
-		price = p.price * @Quantity
-	FROM Cart_Items ci
-	JOIN Products p ON p.id = ci.product_id
-	WHERE ci.id = @Id;
+	UPDATE ci
+    SET 
+        ci.quantity = @Quantity,
+        ci.price = p.price * @Quantity
+    FROM Cart_Items ci
+    JOIN Products p ON p.id = ci.product_id
+    WHERE ci.id = @Id;
 END
 GO
 EXEC sp_recompile N'[Cart_Items].[Update]';

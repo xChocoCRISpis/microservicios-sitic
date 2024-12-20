@@ -16,7 +16,7 @@ BEGIN
 		id Id,
 		order_id Order_Id,
 		product_id Product_Id,
-		quantity Quatity,
+		quantity Quantity,
 		price Price,
 		created_at Created_At,
 		updated_at Updated_At
